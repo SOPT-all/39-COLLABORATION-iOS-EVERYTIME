@@ -1,0 +1,2 @@
+# 39-COLLABORATION-iOS-EVERYTIME
+PLAY SOPT 39기 합동세미나 모바일 앱 4조 iOS | 에브리타임 🎓

@@ -236,14 +236,12 @@ SwiftUI 프로젝트의 일관된 코드 스타일과 유지보수성을 위해 
 ## 📂 Foldering
 
 ```text
-[ProjectName]/
+EVERYTIME/
 ├── App/
-│   └── ProjectApp.swift
+│   └── EverytimeApp.swift
 │
 ├── Global/
 │   ├── Components/
-│   │   ├── ToastView.swift
-│   │   └── CommonButton.swift
 │   └── Extensions/
 │
 ├── Models/
@@ -278,6 +276,7 @@ SwiftUI 프로젝트의 일관된 코드 스타일과 유지보수성을 위해 
 │
 └── Resources/
     ├── Assets.xcassets
+    ├── Fonts/
     └── MockData/
 ```
 

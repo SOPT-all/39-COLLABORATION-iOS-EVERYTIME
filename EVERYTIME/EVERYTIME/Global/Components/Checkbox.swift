@@ -1,5 +1,5 @@
 //
-//  checkbox.swift
+//  Checkbox.swift
 //  EVERYTIME
 //
 //  Created by Seoyoung Lee on 11/8/26.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct checkbox: View {
+struct Checkbox: View {
     @State private var isChecked: Bool = false
     
     var body: some View {
@@ -33,8 +33,4 @@ struct checkbox: View {
             }
         }
     }
-}
-
-#Preview {
-    checkbox()
 }

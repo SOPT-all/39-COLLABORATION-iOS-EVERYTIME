@@ -43,6 +43,12 @@ extension View {
     func body4Style() -> some View {
         self
             .font(.body4)
+            .tracking(-0.56)
+    }
+    
+    func body5Style() -> some View {
+        self
+            .font(.body5)
     }
     
     func cap1Style() -> some View {

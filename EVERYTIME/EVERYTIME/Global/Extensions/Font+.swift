@@ -33,8 +33,9 @@ extension Font {
     
     static let body1 = pretendard(.semiBold, size: 20)
     static let body2 = pretendard(.bold, size: 14)
-    static let body3 = pretendard(.regular, size: 14)
-    static let body4 = pretendard(.semiBold, size: 12)
+    static let body3 = pretendard(.medium, size: 14)
+    static let body4 = pretendard(.regular, size: 14)
+    static let body5 = pretendard(.semiBold, size: 12)
  
     static let cap1 = pretendard(.regular, size: 12)
     static let cap2 = pretendard(.medium, size: 11)

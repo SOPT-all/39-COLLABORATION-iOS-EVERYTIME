@@ -15,7 +15,7 @@ struct NavigationTab: View {
                 VStack {
                     Image(.overview)
                     Text("개요")
-                        .font(.cap4)
+                        .cap4Style()
                         .foregroundStyle(.neutral900)
                 }
             }
@@ -28,7 +28,7 @@ struct NavigationTab: View {
                 VStack {
                     Image(.review)
                     Text("강의평")
-                        .font(.cap4)
+                        .cap4Style()
                         .foregroundStyle(.neutral900)
                 }
                 .padding(.top, 6)
@@ -48,15 +48,11 @@ struct NavigationTab: View {
                 VStack {
                     Image(.search)
                     Text("시험정보")
-                        .font(.cap4)
+                        .cap4Style()
                         .foregroundStyle(.neutral900)
                 }
             }
         }
         .padding(.horizontal, 53.5)
     }
-}
-
-#Preview {
-    NavigationTab()
 }

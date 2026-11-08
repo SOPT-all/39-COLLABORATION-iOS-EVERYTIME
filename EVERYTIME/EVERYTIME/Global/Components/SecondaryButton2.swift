@@ -15,7 +15,7 @@ struct SecondaryButton2: View {
             
         } label: {
             Text("버튼")
-                .font(.cap4)
+                .cap4Style()
                 .foregroundStyle(.neutral400)
         }
         .padding(.horizontal, 9.5)
@@ -27,6 +27,3 @@ struct SecondaryButton2: View {
     }
 }
 
-#Preview {
-    SecondaryButton2(title: "버튼")
-}

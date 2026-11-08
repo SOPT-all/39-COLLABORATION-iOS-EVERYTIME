@@ -18,7 +18,3 @@ struct Score: View {
         }
     }
 }
-
-#Preview {
-    Score(rating: 4)
-}

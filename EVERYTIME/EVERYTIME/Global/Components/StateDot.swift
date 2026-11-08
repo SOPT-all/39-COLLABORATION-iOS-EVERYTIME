@@ -14,10 +14,3 @@ struct StateDot: View {
         Image(isFull ? "dot-green" : "dot-orange")
     }
 }
-
-#Preview {
-    VStack {
-            StateDot(isFull: true)
-            StateDot(isFull: false)
-        }
-}

@@ -12,15 +12,13 @@ struct TopBar: View {
         HStack {
             Image(.back)
                 .padding(.trailing, 128)
+            
             Text("검색")
-                .font(.head1)
+                .head1Style()
                 .padding(.trailing, 128)
+            
             Image(.close)
         }
-        
     }
 }
 
-#Preview {
-    TopBar()
-}

@@ -25,7 +25,7 @@ struct IconLeftButton: View {
                 HStack(spacing: 3.5) {
                     Image(.edit)
                     Text(title)
-                        .font(.body2)
+                        .body2Style()
                         .foregroundStyle(.white)
                 }
                 .padding(.horizontal, 16)
@@ -42,6 +42,7 @@ struct IconLeftButton: View {
                     Image(.like)
                     Text(title)
                         .foregroundStyle(.neutral400)
+                        .cap4Style()
                 }
                 .padding(.vertical, 5)
                 .padding(.horizontal, 10)
@@ -54,8 +55,3 @@ struct IconLeftButton: View {
     }
 }
 
-
-
-#Preview {
-    IconLeftButton(title: "버튼", size: .sm)
-}

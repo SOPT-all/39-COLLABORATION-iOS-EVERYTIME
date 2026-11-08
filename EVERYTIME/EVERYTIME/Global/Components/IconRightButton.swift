@@ -15,7 +15,7 @@ struct IconRightButton: View {
         Button(action: action) {
             HStack(spacing: 2) {
                 Text(title)
-                    .font(.body2)
+                    .body2Style()
                     .foregroundStyle(.neutral800)
                 Image(.down)
             }
@@ -29,6 +29,3 @@ struct IconRightButton: View {
     }
 }
 
-#Preview {
-    IconRightButton(title: "버튼")
-}

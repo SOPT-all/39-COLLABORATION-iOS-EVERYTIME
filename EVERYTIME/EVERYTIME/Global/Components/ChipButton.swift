@@ -24,10 +24,10 @@ struct ChipButton: View {
             Button(action: action) {
                 HStack {
                     Text(title)
-                        .font(.cap2)
+                        .cap2Style()
                         .foregroundStyle(.neutral800)
                     Text(caption)
-                        .font(.body2)
+                        .body2Style()
                         .foregroundStyle(isSelected ? .primary900 : .neutral700)
                 }
                 .padding(.vertical, 9)
@@ -42,7 +42,7 @@ struct ChipButton: View {
             Button(action: action) {
                 HStack {
                     Text("\(title) (\(count))")
-                        .font(.cap1)
+                        .cap1Style()
                         .foregroundStyle(isSelected ? Color.neutral50 : Color.neutral800)
                 }
                 .padding(.horizontal, 12)
@@ -58,8 +58,4 @@ struct ChipButton: View {
             }
         }
     }
-}
-
-#Preview {
-    ChipButton(title: "키워드:", style: .sm(count: 1), isSelected: false)
 }

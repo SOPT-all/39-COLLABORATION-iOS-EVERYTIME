@@ -19,9 +19,10 @@ struct NavigationTab: View {
                         .foregroundStyle(.neutral900)
                 }
             }
+            
             Spacer()
             
-            Button{
+            Button {
                 
             } label: {
                 VStack {

@@ -19,6 +19,7 @@ struct IconLeftButton: View {
     
     var body: some View {
         switch size {
+            
         case .lg:
             Button (action: action) {
                 HStack(spacing: 3.5) {

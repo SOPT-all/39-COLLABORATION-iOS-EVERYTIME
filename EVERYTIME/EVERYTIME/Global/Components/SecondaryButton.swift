@@ -8,12 +8,13 @@
 import SwiftUI
 
 struct SecondaryButton: View {
-    enum ButtonSize {
+    enum ButtonStyle {
         case sm
         case md
+        case red
     }
     
-    let size: ButtonSize
+    let size: ButtonStyle
     let text: String
     
     var body: some View {
@@ -37,6 +38,16 @@ struct SecondaryButton: View {
                 .frame(height: 30)
                 .overlay {
                     Capsule().stroke(.neutral300, lineWidth: 1)
+                }
+        case .red:
+            Text(text)
+                .cap2Style()
+                .foregroundStyle(.white)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 5)
+                .frame(height: 27)
+                .background {
+                    Capsule().fill(.primary900)
                 }
         }
     }

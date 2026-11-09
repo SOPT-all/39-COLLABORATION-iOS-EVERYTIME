@@ -14,7 +14,7 @@ struct SecondaryButton2: View {
         Button {
             
         } label: {
-            Text("버튼")
+            Text(title)
                 .cap4Style()
                 .foregroundStyle(.neutral400)
         }

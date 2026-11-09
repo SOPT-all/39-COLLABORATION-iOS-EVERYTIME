@@ -98,18 +98,3 @@ struct Timetable: View {
         cellBorder.frame(width: width, height: height)
     }
 }
-
-#Preview {
-    Timetable(
-        lessons: [
-            .init(day: 0, start: 9, end: 11, title: "교내인턴",
-                  professor: "", color: .timetableCoral),
-            .init(day: 2, start: 11, end: 13.5, title: "사진디자인",
-                  professor: "조형예술", color: .timetableGreen)
-        ],
-        days: ["월", "화", "수", "목", "금"],
-        startHour: 9,
-        endHour: 14
-    )
-    .padding(.horizontal, 12)
-}

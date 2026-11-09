@@ -102,7 +102,3 @@ struct Card: View {
         .buttonStyle(.plain)
     }
 }
-
-#Preview {
-    Card(lecture: "국어학입문", professor: "김경아", section: "화3/수3", classroom: "인문사회관-314 인문사회관-314", grade: 1, type: "전필", credit: 3, code: "KL02003-01", cartCount: 39, capacity: 80, info: "수강대상: [대상] 국어국문학과 전공 1학년")
-}

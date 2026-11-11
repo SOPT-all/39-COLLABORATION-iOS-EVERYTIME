@@ -130,6 +130,8 @@
 /* Begin XCBuildConfiguration section */
 		000000000000000011000000 /* Debug configuration for PBXProject "EVERYTIME" */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 000000000000000000000010 /* EVERYTIME */;
+			baseConfigurationReferenceRelativePath = Config.xcconfig;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -262,6 +264,8 @@
 		};
 		000000000000000111000000 /* Debug configuration for PBXNativeTarget "EVERYTIME" */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 000000000000000000000010 /* EVERYTIME */;
+			baseConfigurationReferenceRelativePath = Config.xcconfig;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;

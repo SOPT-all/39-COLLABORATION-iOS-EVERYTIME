@@ -43,7 +43,6 @@ struct TimetableView: View {
             VStack(alignment: .leading, spacing: 12) {
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(alignment: .center, spacing: 8) {
-                        // TODO: 컴포넌트에서 selected일때 x 버튼 추가
                         ChipButton(title: "전공/영역", style: .md(caption: "산업디자인학과"), isSelected: true)
                             .padding(.leading, 16)
                         ChipButton(title: "검색어", style: .md(caption: "없음"), isSelected: false)

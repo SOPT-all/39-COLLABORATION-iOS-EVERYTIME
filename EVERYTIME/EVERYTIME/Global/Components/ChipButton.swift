@@ -26,9 +26,20 @@ struct ChipButton: View {
                     Text(title)
                         .cap2Style()
                         .foregroundStyle(.neutral800)
+                    
                     Text(caption)
                         .body2Style()
                         .foregroundStyle(isSelected ? .primary900 : .neutral700)
+                    
+                    if isSelected {
+                        Button {
+                            // clear
+                        } label: {
+                            Image(.closeMini)
+                                .resizable()
+                                .frame(width: 14, height: 14)
+                        }
+                    }
                 }
                 .padding(.vertical, 9)
                 .padding(.horizontal, 10)

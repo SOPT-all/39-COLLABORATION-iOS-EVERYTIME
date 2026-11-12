@@ -33,7 +33,8 @@ SwiftUI의 선언형 UI와 Observation을 활용하여 화면과 상태 관리 �
 - **Model**: 강의, 시간표, 강의평 등 데이터 모델 정의
 - **View**: SwiftUI 기반 UI 구성 및 사용자 이벤트 전달
 - **ViewModel**: 화면 상태 관리 및 비즈니스 로직 수행
-- **Repository**: API 통신과 데이터 접근 로직 분리
+- **DTO**: API 요청 및 응답 데이터 형식 정의
+- **Service**: URLSession을 이용한 API 요청과 응답 처리
 
 ```text
           ┌──────────────┐
@@ -47,11 +48,7 @@ SwiftUI의 선언형 UI와 Observation을 활용하여 화면과 상태 관리 �
           └──────┬───────┘
                  │
           ┌──────▼───────┐
-          │  Repository  │
-          └──────┬───────┘
-                 │
-          ┌──────▼───────┐
-          │  API Client  │
+          │   Service    │
           │  URLSession  │
           └──────────────┘
 ```
@@ -250,10 +247,9 @@ EVERYTIME/
 │   └── CourseReview.swift
 │
 ├── Network/
-│   ├── APIClient.swift
 │   ├── DTO/
-│   └── Repository/
-│       └── CourseRepository.swift
+│   └── Service/
+│       └── CourseService.swift
 │
 ├── Features/
 │   ├── Timetable/

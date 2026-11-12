@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct Card: View {
-    @State private var isSelected = false
+    @Binding var selectedCardID: String?
+    
+    let id: String
     let lecture: String
     let professor: String
     let section: String
@@ -21,9 +23,13 @@ struct Card: View {
     let capacity: Int
     let info: String
     
+    private var isSelected: Bool {
+        selectedCardID == id
+    }
+    
     var body: some View {
         Button {
-            isSelected.toggle()
+            selectedCardID = isSelected ? nil : id
         } label: {
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 2) {
@@ -54,14 +60,12 @@ struct Card: View {
                             .cap3Style()
                             .foregroundStyle(.primary900)
                             .padding(.top, 2)
-                            .transition(.opacity)
                         
                         HStack(alignment: .center, spacing: 8) {
                             SecondaryButton(size: .red, text: "시간표에 추가")
                             SecondaryButton(size: .md, text: "강의평")
                         }
                         .padding(.top, 2)
-                        .transition(.opacity)
                     }
                 }
                 
@@ -97,7 +101,6 @@ struct Card: View {
             .background(
                 isSelected ? .primary100 : .white
             )
-            .animation(.easeInOut(duration: 0.25), value: isSelected)
         }
         .buttonStyle(.plain)
     }

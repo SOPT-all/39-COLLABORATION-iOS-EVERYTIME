@@ -4,7 +4,6 @@
 //
 //  Created by sieon on 11/9/26.
 //
-
 import SwiftUI
 
 struct ReviewRowView: View {
@@ -12,25 +11,33 @@ struct ReviewRowView: View {
     let caption: String
     
     var body: some View {
-        VStack(alignment: .leading) {
-            HStack {
-                Score(size: .sm, rating: 5)
-                    .padding(.bottom, 8)
+        VStack(alignment: .leading, spacing: 0) {
+            HStack(spacing: 0) {
+                VStack(alignment: .leading, spacing: 6) {
+                    Score(size: .sm, rating: 5)
+                        .padding(.bottom, 2)
+                    
+                    Text(author)
+                        .cap4Style()
+                        .foregroundStyle(.neutral400)
+                        .padding(.bottom, 7)
+                }
+                
                 Spacer()
                 
-                IconLeftButton(title: "추천", size: .sm)
-                SecondaryButton2(title: "신고")
-                    .padding(.trailing, 23)
+                HStack(spacing: 0) {
+                    IconLeftButton(title: "추천", size: .sm)
+                        .padding(.trailing, 4)
+                    SecondaryButton2(title: "신고")
+                }
+                .padding(.bottom, 17)
             }
-            Text(author)
-                .cap4Style()
-                .foregroundStyle(.neutral400)
-                .padding(.bottom, 7)
             
-            Text(caption)
+            Text(caption.byCharWrapping)
                 .body4Style()
                 .foregroundStyle(.neutral800)
         }
-        .padding(.leading, 23)
+        .frame(maxWidth: .infinity)
+        .padding(.horizontal, 15)
     }
 }

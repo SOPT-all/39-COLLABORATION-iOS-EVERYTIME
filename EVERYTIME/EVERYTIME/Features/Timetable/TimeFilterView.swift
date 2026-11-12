@@ -21,6 +21,21 @@ struct TimeFilterView: View {
                 .padding(.bottom, 17)
                 .padding(.horizontal, 24)
             
+            TimeFilterGridView(
+                lessons: [
+                    .init(day: 0, start: 9, end: 15,
+                            title: "교내인턴", professor: "",
+                            color: .timetableCoral),
+                    .init(day: 2, start: 12, end: 15,
+                            title: "사진디자인", professor: "조형예술",
+                            color: .timetableGreen),
+                    .init(day: 4, start: 12, end: 15,
+                            title: "인적성검사", professor: "",
+                            color: .timetableOrange)
+                ],
+                selectedSlots: $selectedSlots
+            )
+            
             Spacer()
         }
     }

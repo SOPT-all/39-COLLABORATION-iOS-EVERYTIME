@@ -10,10 +10,11 @@ import SwiftUI
 struct ReviewRowView: View {
     let author: String
     let caption: String
+    
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                Score(rating: 5)
+                Score(size: .sm, rating: 5)
                     .padding(.bottom, 8)
                 Spacer()
                 
@@ -21,7 +22,7 @@ struct ReviewRowView: View {
                 SecondaryButton2(title: "신고")
                     .padding(.trailing, 23)
             }
-            Text("author")
+            Text(author)
                 .cap4Style()
                 .foregroundStyle(.neutral400)
                 .padding(.bottom, 7)
@@ -32,8 +33,4 @@ struct ReviewRowView: View {
         }
         .padding(.leading, 23)
     }
-}
-
-#Preview {
-    ReviewRowView(author: "26년 2학기 수강자", caption: "교수님께서 좋으셔서 듣기 좋았어요! \n 물론 풀강을.. 하시지만 안하실때도 있기도 하고 너무 친절하게 알려주셔서 만족했습니다!")
 }

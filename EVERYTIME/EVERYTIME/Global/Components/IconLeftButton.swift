@@ -35,6 +35,7 @@ struct IconLeftButton: View {
                         .fill(Color.primary900)
                 )
             }
+            .shadow(color: .black.opacity(0.18), radius: 8, x: 0, y: 2)
             
         case .sm:
             Button(action: action) {

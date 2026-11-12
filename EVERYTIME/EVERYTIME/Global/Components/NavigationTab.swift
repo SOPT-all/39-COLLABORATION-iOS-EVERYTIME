@@ -53,6 +53,8 @@ struct NavigationTab: View {
                 }
             }
         }
+        .frame(height: 59)
+        .frame(maxWidth: .infinity)
         .padding(.horizontal, 53.5)
     }
 }

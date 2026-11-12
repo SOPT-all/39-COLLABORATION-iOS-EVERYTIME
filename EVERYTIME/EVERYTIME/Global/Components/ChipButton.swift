@@ -22,11 +22,11 @@ struct ChipButton: View {
         switch style {
         case .md(let caption):
             Button(action: action) {
-                HStack {
+                HStack(spacing: 0) {
                     Text(title)
                         .cap2Style()
                         .foregroundStyle(.neutral800)
-                    
+                        .padding(.trailing, 6)
                     Text(caption)
                         .body2Style()
                         .foregroundStyle(isSelected ? .primary900 : .neutral700)
@@ -51,13 +51,13 @@ struct ChipButton: View {
             
         case .sm(let count):
             Button(action: action) {
-                HStack {
+                HStack(spacing: 0) {
                     Text("\(title) (\(count))")
                         .cap1Style()
                         .foregroundStyle(isSelected ? Color.neutral50 : Color.neutral800)
                 }
+                .frame(height: 30)
                 .padding(.horizontal, 12)
-                .padding(.vertical, 7)
                 .background(
                     Capsule()
                         .foregroundStyle(isSelected ? Color.neutral900 : Color.white)

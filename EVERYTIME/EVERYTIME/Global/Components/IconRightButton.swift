@@ -16,7 +16,8 @@ struct IconRightButton: View {
             HStack(spacing: 2) {
                 Text(title)
                     .body2Style()
-                    .foregroundStyle(.neutral800)
+                    .foregroundStyle(.neutral700)
+                
                 Image(.down)
             }
             .padding(.horizontal, 7)

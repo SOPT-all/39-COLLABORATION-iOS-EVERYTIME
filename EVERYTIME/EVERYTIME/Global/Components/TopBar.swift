@@ -8,16 +8,20 @@
 import SwiftUI
 
 struct TopBar: View {
+    let title: String
     var body: some View {
         HStack {
             Image(.back)
-                .padding(.trailing, 128)
+                
+            Spacer()
             
-            Text("검색")
+            Text(title)
                 .head1Style()
-                .padding(.trailing, 128)
+                
+            Spacer()
             
             Image(.close)
         }
+        .padding(.horizontal, 10)
     }
 }

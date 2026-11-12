@@ -45,8 +45,8 @@ struct ChipButton: View {
                         .cap1Style()
                         .foregroundStyle(isSelected ? Color.neutral50 : Color.neutral800)
                 }
+                .frame(height: 30)
                 .padding(.horizontal, 12)
-                .padding(.vertical, 7)
                 .background(
                     Capsule()
                         .foregroundStyle(isSelected ? Color.neutral900 : Color.white)
@@ -59,3 +59,5 @@ struct ChipButton: View {
         }
     }
 }
+
+

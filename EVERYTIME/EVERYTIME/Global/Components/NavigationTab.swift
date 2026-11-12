@@ -58,7 +58,3 @@ struct NavigationTab: View {
         .padding(.horizontal, 53.5)
     }
 }
-
-#Preview {
-    NavigationTab()
-}

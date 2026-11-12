@@ -12,7 +12,6 @@ struct TopBar: View {
     var body: some View {
         HStack {
             Image(.back)
-                .padding(.leading, 10)
                 
             Spacer()
             
@@ -22,7 +21,7 @@ struct TopBar: View {
             Spacer()
             
             Image(.close)
-                .padding(.trailing, 10)
         }
+        .padding(.horizontal, 10)
     }
 }

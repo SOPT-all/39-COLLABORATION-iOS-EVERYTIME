@@ -55,5 +55,3 @@ struct IconLeftButton: View {
         }
     }
 }
-
-

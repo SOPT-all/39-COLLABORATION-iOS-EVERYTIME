@@ -13,13 +13,16 @@ struct ReviewCheckView: View {
     
     var body: some View {
         ZStack {
-            VStack {
+            VStack(spacing: 0) {
                 TopBar(title: "AI와창의적문제해결 강의실")
+                    .padding(.top, 4)
+                    .padding(.bottom, 6)
                 
-                HStack {
+                HStack(spacing: 0) {
                     Text("3.67")
                         .head1Style()
                         .foregroundStyle(.neutral900)
+                        .padding(.trailing, 10)
                         .padding(.leading, 22)
                     
                     Score(size: .lg, rating: 4)
@@ -31,6 +34,7 @@ struct ReviewCheckView: View {
                     IconRightButton(title: "등록순")
                         .padding(.trailing, 16)
                 }
+                .padding(.bottom, 24)
                 
                 ScrollView(.horizontal) {
                     HStack(spacing: 5) {
@@ -39,24 +43,24 @@ struct ReviewCheckView: View {
                         }
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.leading, 16)
                 }
+                .padding(.horizontal, 16)
                 .scrollIndicators(.hidden)
                 
-                    
-                    CourseReviewView()
+                CourseReviewView()
             }
             
-            VStack(spacing: 0){
+            VStack(spacing: 0) {
                 Spacer()
                 
                 IconLeftButton(title: "평가하기", size: .lg)
                     .padding(.bottom, 8)
                 
-                Divider()
                 NavigationTab()
-                    .background(Color.white.ignoresSafeArea(edges: .bottom))
-                    .shadow(color: .black.opacity(0.13), radius: 10.5, x: 0, y: 0)
+                    .background(
+                        Color.white.ignoresSafeArea(edges: .bottom)
+                            .shadow(color: .black.opacity(0.13), radius: 10.5, x: 0, y: 0)
+                    )
             }
         }
     }

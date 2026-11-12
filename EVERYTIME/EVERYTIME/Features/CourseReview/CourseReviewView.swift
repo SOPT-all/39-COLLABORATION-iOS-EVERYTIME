@@ -36,6 +36,7 @@ struct CourseReviewView: View {
                 .alignmentGuide(.listRowSeparatorLeading) { _ in 0 }
                 .alignmentGuide(.listRowSeparatorTrailing) { $0.width }
         }
+        .padding(.horizontal, 8)
         .listStyle(.plain)
         .scrollContentBackground(.hidden)          
         .background(Color.white)

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CourseRequestDTO: Encodable {
+struct CourseRequestDTO {
     let categoryId: Int64?
     let departmentId: Int64?
     let semester: String?

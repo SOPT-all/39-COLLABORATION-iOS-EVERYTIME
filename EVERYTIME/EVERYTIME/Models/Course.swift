@@ -25,7 +25,7 @@ struct CourseSection: Identifiable {
     let id: Int64
     let number: String
     let professor: String
-    let capacity: Int
+    let capacity: Int?
     let savedCount: Int
     let averageGradePoint: Double
     let schedules: [CourseSchedule]

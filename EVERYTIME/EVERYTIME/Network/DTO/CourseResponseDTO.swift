@@ -24,14 +24,14 @@ struct CourseResponseDTO: Decodable {
     
     struct CourseDTO: Decodable {
         let courseId: Int64
-        let couseCode: String
+        let courseCode: String
         let courseName: String
         let semester: String
         let credit: Int
         let departmentId: Int64
-        let departmentName: Int64
+        let departmentName: String
         let categoryId: Int64
-        let categoryName: Int64
+        let categoryName: String
         let recommendedGrade: Int?
         let targetGrade: Int?
         let targetText: String?

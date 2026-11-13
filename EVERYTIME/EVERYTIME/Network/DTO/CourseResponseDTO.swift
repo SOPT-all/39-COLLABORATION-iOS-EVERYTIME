@@ -42,7 +42,7 @@ struct CourseResponseDTO: Decodable {
         let sectionId: Int64
         let sectionNo: String
         let professor: String
-        let capacity: Int
+        let capacity: Int?
         let savedCount: Int
         let averageGradePoint: Double
         let times: [TimeDTO]

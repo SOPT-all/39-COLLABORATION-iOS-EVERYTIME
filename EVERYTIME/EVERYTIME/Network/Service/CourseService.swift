@@ -23,7 +23,7 @@ final class CourseService {
         }
         
         let path = "/api/v1/courses"
-        var endpointURL = url.appending(path: path)
+        let endpointURL = url.appending(path: path)
         
         guard var components = URLComponents(
             url: endpointURL,
@@ -49,7 +49,7 @@ final class CourseService {
         return request
     }
     
-    func fetchCourses(query: CourseRequestDTO) async throws -> CourseResponseDTO {
+    func fetchCourses(query: CourseRequestDTO, memberId: Int64) async throws -> CourseResponseDTO {
         var items: [URLQueryItem] = []
         
         if let value = query.categoryId {
@@ -77,7 +77,8 @@ final class CourseService {
             items.append(.init(name: "size", value: String(value)))
         }
 
-        let request = try makeRequest(method: "GET", queryItems: items)
+        var request = try makeRequest(method: "GET", queryItems: items)
+        request.setValue(String(memberId), forHTTPHeaderField: "X-Member-Id")
         
         let (data, response) = try await URLSession.shared.data(for: request)
         
@@ -89,14 +90,10 @@ final class CourseService {
             throw NetworkError(statusCode: httpResponse.statusCode)
         }
         
-        do {
-            let result = try JSONDecoder().decode(CourseResponseDTO.self, from: data)
-            guard result.success, result.data != nil else {
-                throw NetworkError.serverError(message: result.message)
-            }
-            return result
-        } catch {
-            throw NetworkError.responseDecodingError
+        let result = try JSONDecoder().decode(CourseResponseDTO.self, from: data)
+        guard result.success, result.data != nil else {
+            throw NetworkError.serverError(message: result.message)
         }
+        return result
     }
 }

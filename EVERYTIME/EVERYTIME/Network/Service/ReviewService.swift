@@ -88,5 +88,4 @@ final class ReviewService {
             throw NetworkError.responseDecodingError
         }
     }
-    
 }

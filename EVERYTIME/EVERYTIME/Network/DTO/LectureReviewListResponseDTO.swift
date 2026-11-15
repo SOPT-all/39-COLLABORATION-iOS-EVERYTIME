@@ -49,7 +49,6 @@ struct LectureReviewListResponseDTO: Decodable {
         let highlight: HighlightData?
     }
     
-    
     struct HighlightData: Decodable {
         
     }

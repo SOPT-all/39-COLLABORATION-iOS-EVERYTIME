@@ -70,8 +70,7 @@ final class ReviewService {
             queryItems.append(URLQueryItem(name: "size", value: "\(size)"))
         }
         
-        let request = try makeRequest(method: "GET", sectionID: sectionID)
-        
+        let request = try makeRequest(method: "GET", sectionID: sectionID, queryItems: queryItems)
         
         let (data, response) = try await URLSession.shared.data(for: request)
         

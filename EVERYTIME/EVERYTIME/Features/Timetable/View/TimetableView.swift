@@ -31,7 +31,26 @@ struct TimetableView: View {
             .padding(.bottom, 14)
             
             VStack(alignment: .leading, spacing: 12) {
-                TimetableFilterSection()
+                TimetableFilterSection(
+                    selectedCategoryId: $viewModel.selectedCategoryId,
+                    hideTaken: $viewModel.hideTaken,
+                    hideRestricted: $viewModel.hideRestricted
+                )
+                .onChange(of: viewModel.selectedCategoryId) { _, _ in
+                    Task {
+                        await viewModel.applyFilters()
+                    }
+                }
+                .onChange(of: viewModel.hideTaken) { _, _ in
+                    Task {
+                        await viewModel.applyFilters()
+                    }
+                }
+                .onChange(of: viewModel.hideRestricted) { _, _ in
+                    Task {
+                        await viewModel.applyFilters()
+                    }
+                }
                 
                 TimetableListView(courses: viewModel.courses)
             }

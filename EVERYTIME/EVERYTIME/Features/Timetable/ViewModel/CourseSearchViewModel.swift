@@ -20,6 +20,8 @@ final class CourseSearchViewModel {
 
     var selectedCategoryId: Int64?
     var selectedDepartmentId: Int64?
+    var hideTaken = false
+    var hideRestricted = false
     var semester: String?
     var sort: String?
     private(set) var page = 1
@@ -35,11 +37,11 @@ final class CourseSearchViewModel {
         do {
             let response = try await CourseService.shared.fetchCourses(
                 query: CourseRequestDTO(
-                    categoryId: nil,
+                    categoryId: selectedCategoryId,
                     departmentId: nil,
                     semester: nil,
-                    hideTaken: nil,
-                    hideRestricted: nil,
+                    hideTaken: hideTaken,
+                    hideRestricted: hideRestricted,
                     sort: nil,
                     page: 1,
                     size: 10
@@ -53,5 +55,12 @@ final class CourseSearchViewModel {
         } catch {
             errorMessage = error.localizedDescription
         }
+    }
+    
+    func loadNextPage() async { /* 다음 페이지를 courses에 추가 */ }
+    func applyFilters() async {
+        page = 1
+        hasNext = false
+        await loadCourses()
     }
 }

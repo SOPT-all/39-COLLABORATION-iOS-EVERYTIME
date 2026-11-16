@@ -22,11 +22,11 @@ struct ChipButton: View {
         switch style {
         case .md(let caption):
             Button(action: action) {
-                HStack(spacing: 0) {
+                HStack(spacing: 6) {
                     Text(title)
                         .cap2Style()
                         .foregroundStyle(.neutral800)
-                        .padding(.trailing, 6)
+
                     Text(caption)
                         .body2Style()
                         .foregroundStyle(isSelected ? .primary900 : .neutral700)

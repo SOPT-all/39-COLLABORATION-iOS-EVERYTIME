@@ -60,5 +60,3 @@ final class ReviewCheckViewModel {
         }
     }
 }
-
-

@@ -11,6 +11,6 @@ struct StateDot: View {
     let isFull: Bool
     
     var body: some View {
-        Image(isFull ? "dot-green" : "dot-orange")
+        Image(isFull ? "dot-orange" : "dot-green")
     }
 }

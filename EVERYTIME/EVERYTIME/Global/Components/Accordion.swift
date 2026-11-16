@@ -11,6 +11,7 @@ struct Accordion: View {
     let title: String
     let sectionCount: Int
     let cards: [Card]
+    let onCollapse: () -> Void
     
     @State private var isExpanded = false
     
@@ -55,6 +56,7 @@ struct Accordion: View {
 
                 Button {
                     isExpanded = false
+                    onCollapse()
                 } label: {
                     HStack(alignment: .center, spacing: 2) {
                         Spacer()

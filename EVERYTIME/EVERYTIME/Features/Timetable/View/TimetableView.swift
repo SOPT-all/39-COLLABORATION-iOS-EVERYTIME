@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct TimetableView: View {
+    @State private var viewModel = CourseSearchViewModel()
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             VStack(spacing: 6) {
@@ -29,9 +31,35 @@ struct TimetableView: View {
             .padding(.bottom, 14)
             
             VStack(alignment: .leading, spacing: 12) {
-                TimetableFilterSection()
+                TimetableFilterSection(
+                    selectedCategoryId: $viewModel.selectedCategoryId,
+                    hideTaken: $viewModel.hideTaken,
+                    hideRestricted: $viewModel.hideRestricted
+                )
+                .onChange(of: viewModel.selectedCategoryId) { _, _ in
+                    Task {
+                        await viewModel.applyFilters()
+                    }
+                }
+                .onChange(of: viewModel.hideTaken) { _, _ in
+                    Task {
+                        await viewModel.applyFilters()
+                    }
+                }
+                .onChange(of: viewModel.hideRestricted) { _, _ in
+                    Task {
+                        await viewModel.applyFilters()
+                    }
+                }
                 
-                TimetableListView()
+                TimetableListView(courses: viewModel.courses) {
+                    Task {
+                        await viewModel.loadNextPage()
+                    }
+                }
+            }
+            .task {
+                await viewModel.loadCourses()
             }
         }
     }

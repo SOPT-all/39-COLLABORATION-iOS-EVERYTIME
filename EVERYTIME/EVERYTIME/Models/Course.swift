@@ -29,11 +29,12 @@ struct CourseSection: Identifiable {
     let savedCount: Int
     let averageGradePoint: Double
     let schedules: [CourseSchedule]
+    let timeText: String
 }
 
 struct CourseSchedule {
     let dayOfWeek: String
     let startTime: String
     let endTime: String
-    let classroom: String
+    let classroom: String?
 }

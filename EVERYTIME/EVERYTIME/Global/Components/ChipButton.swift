@@ -16,38 +16,55 @@ struct ChipButton: View {
     let title: String
     let style: ButtonSize
     let isSelected: Bool
-    var action: () -> Void = { }
+    var action: () -> Void = {}
+    var clearAction: (() -> Void)? = nil
+    var menuItems: [(title: String, action: () -> Void)]? = nil
     
     var body: some View {
         switch style {
         case .md(let caption):
-            Button(action: action) {
-                HStack(spacing: 0) {
-                    Text(title)
-                        .cap2Style()
-                        .foregroundStyle(.neutral800)
-                        .padding(.trailing, 6)
-                    Text(caption)
-                        .body2Style()
-                        .foregroundStyle(isSelected ? .primary900 : .neutral700)
-                    
-                    if isSelected {
-                        Button {
-                            // clear
-                        } label: {
-                            Image(.closeMini)
-                                .resizable()
-                                .frame(width: 14, height: 14)
+            HStack(spacing: 6) {
+                if let menuItems {
+                    Menu {
+                        ForEach(menuItems.indices, id: \.self) { index in
+                            Button(menuItems[index].title, action: menuItems[index].action)
                         }
+                    } label: {
+                        Text(title)
+                            .cap2Style()
+                            .foregroundStyle(.neutral800)
+
+                        Text(caption)
+                            .body2Style()
+                            .foregroundStyle(isSelected ? .primary900 : .neutral700)
+                    }
+                } else {
+                    Button(action: action) {
+                        Text(title)
+                            .cap2Style()
+                            .foregroundStyle(.neutral800)
+
+                        Text(caption)
+                            .body2Style()
+                            .foregroundStyle(isSelected ? .primary900 : .neutral700)
                     }
                 }
-                .padding(.vertical, 9)
-                .padding(.horizontal, 10)
-                .background(
-                    Capsule()
-                        .fill(.neutral50)
-                )
+                    
+                if isSelected, let clearAction {
+                    Button(action: clearAction) {
+                        Image(.closeMini)
+                            .resizable()
+                            .frame(width: 14, height: 14)
+                    }
+                }
             }
+            .padding(.vertical, 9)
+            .padding(.horizontal, 10)
+            .background(
+                Capsule()
+                    .fill(.neutral50)
+            )
+            
             
         case .sm(let count):
             Button(action: action) {

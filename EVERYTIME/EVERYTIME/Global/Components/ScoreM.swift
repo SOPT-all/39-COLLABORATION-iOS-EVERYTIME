@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct ScoreM: View {
-    let score: Int
+    let score: Double
     
     var body: some View {
-        Image("ScoreM\(score)")
+        Image("ScoreM\(Int(score))")
     }
 }

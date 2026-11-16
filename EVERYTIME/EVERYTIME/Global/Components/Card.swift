@@ -13,8 +13,7 @@ struct Card: View {
     let id: String
     let lecture: String
     let professor: String
-    let section: String
-    let classroom: String
+    let timeText: String
     let grade: Int
     let type: String
     let credit: Int
@@ -22,6 +21,7 @@ struct Card: View {
     let cartCount: Int
     let capacity: Int
     let info: String
+    let averageGradePoint: Double
     
     private var isSelected: Bool {
         selectedCardID == id
@@ -42,7 +42,7 @@ struct Card: View {
                         .foregroundStyle(.neutral900)
                         .padding(.bottom, 6)
                     
-                    Text("\(section) / \(classroom)")
+                    Text(timeText)
                         .cap1Style()
                         .foregroundStyle(.neutral700)
                     
@@ -73,7 +73,7 @@ struct Card: View {
                 
                 VStack(alignment: .trailing) {
                     VStack(alignment: .trailing, spacing: 2) {
-                        ScoreM(score: 5)
+                        ScoreM(score: averageGradePoint)
                             .padding(.bottom, 2)
                         
                         HStack(spacing: 2) {

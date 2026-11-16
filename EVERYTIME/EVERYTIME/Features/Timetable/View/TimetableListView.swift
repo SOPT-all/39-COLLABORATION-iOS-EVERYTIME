@@ -14,27 +14,46 @@ struct TimetableListView: View {
     var body: some View {
         List {
             ForEach(courses) { course in
-                Accordion(
-                    title: course.name,
-                    sectionCount: course.sections.count,
-                    cards: course.sections.map { section in
-                        Card(
-                            selectedCardID: $selectedCardID,
-                            id: String(section.id),
-                            lecture: course.name,
-                            professor: section.professor,
-                            timeText: section.timeText,
-                            grade: course.recommendedGrade ?? 0,
-                            type: course.categoryName,
-                            credit: course.credit,
-                            code: "\(course.code)-\(section.number)",
-                            cartCount: section.savedCount,
-                            capacity: section.capacity ?? 0,
-                            info: course.targetText ?? "",
-                            averageGradePoint: section.averageGradePoint
-                        )
-                    }
-                )
+                if (course.sections.count == 1) {
+                    let section = course.sections[0]
+                    Card(
+                        selectedCardID: $selectedCardID,
+                        id: String(section.id),
+                        lecture: course.name,
+                        professor: section.professor,
+                        timeText: section.timeText,
+                        grade: course.recommendedGrade ?? 0,
+                        type: course.categoryName,
+                        credit: course.credit,
+                        code: "\(course.code)-\(section.number)",
+                        cartCount: section.savedCount,
+                        capacity: section.capacity ?? 0,
+                        info: course.targetText ?? "",
+                        averageGradePoint: section.averageGradePoint
+                    )
+                } else {
+                    Accordion(
+                        title: course.name,
+                        sectionCount: course.sections.count,
+                        cards: course.sections.map { section in
+                            Card(
+                                selectedCardID: $selectedCardID,
+                                id: String(section.id),
+                                lecture: course.name,
+                                professor: section.professor,
+                                timeText: section.timeText,
+                                grade: course.recommendedGrade ?? 0,
+                                type: course.categoryName,
+                                credit: course.credit,
+                                code: "\(course.code)-\(section.number)",
+                                cartCount: section.savedCount,
+                                capacity: section.capacity ?? 0,
+                                info: course.targetText ?? "",
+                                averageGradePoint: section.averageGradePoint
+                            )
+                        }
+                    )
+                }
             }
             .listRowSeparator(.hidden)
             .listRowInsets(EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0))

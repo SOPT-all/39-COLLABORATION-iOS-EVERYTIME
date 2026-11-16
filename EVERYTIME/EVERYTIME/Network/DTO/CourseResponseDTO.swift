@@ -56,3 +56,47 @@ struct CourseResponseDTO: Decodable {
         let classroom: String
     }
 }
+
+extension CourseResponseDTO.CourseDTO {
+    func toDomain() -> Course {
+        Course(
+            id: courseId,
+            code: courseCode,
+            name: courseName,
+            semester: semester,
+            credit: credit,
+            departmentName: departmentName,
+            categoryName: categoryName,
+            recommendedGrade: recommendedGrade,
+            targetGrade: targetGrade,
+            targetText: targetText,
+            sections: sections.map { $0.toDomain() }
+        )
+    }
+}
+
+extension CourseResponseDTO.SectionDTO {
+    func toDomain() -> CourseSection {
+        CourseSection(
+            id: sectionId,
+            number: sectionNo,
+            professor: professor,
+            capacity: capacity,
+            savedCount: savedCount,
+            averageGradePoint: averageGradePoint,
+            schedules: times.map { $0.toDomain() },
+            timeText: timeText
+        )
+    }
+}
+
+extension CourseResponseDTO.TimeDTO {
+    func toDomain() -> CourseSchedule {
+        CourseSchedule(
+            dayOfWeek: dayOfWeek,
+            startTime: startTime,
+            endTime: endTime,
+            classroom: classroom
+        )
+    }
+}

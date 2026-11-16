@@ -90,7 +90,7 @@ struct Card: View {
                     .foregroundStyle(.neutral400)
                     .padding(.trailing, 8)
                     
-                    StateDot(isFull: true)
+                    StateDot(isFull: cartCount > capacity)
                 }
                 .padding(.top, 4)
             }

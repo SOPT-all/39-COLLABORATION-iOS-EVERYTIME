@@ -46,6 +46,7 @@ struct CourseResponseDTO: Decodable {
         let savedCount: Int
         let averageGradePoint: Double
         let times: [TimeDTO]
+        let timeText: String
     }
     
     struct TimeDTO: Decodable {

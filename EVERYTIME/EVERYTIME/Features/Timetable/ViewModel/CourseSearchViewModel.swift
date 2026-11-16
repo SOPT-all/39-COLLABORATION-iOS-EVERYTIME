@@ -57,7 +57,37 @@ final class CourseSearchViewModel {
         }
     }
     
-    func loadNextPage() async { /* 다음 페이지를 courses에 추가 */ }
+    func loadNextPage() async {
+        guard hasNext, !isLoading, !isLoadingMore else { return }
+
+        let nextPage = page + 1
+        isLoadingMore = true
+        defer { isLoadingMore = false }
+
+        do {
+            let response = try await CourseService.shared.fetchCourses(
+                query: CourseRequestDTO(
+                    categoryId: selectedCategoryId,
+                    departmentId: nil,
+                    semester: nil,
+                    hideTaken: hideTaken,
+                    hideRestricted: hideRestricted,
+                    sort: nil,
+                    page: nextPage,
+                    size: 10
+                ),
+                memberId: 1
+            )
+            guard let data = response.data else { return }
+
+            courses.append(contentsOf: data.courses.map { $0.toDomain() })
+            page = data.page
+            hasNext = data.hasNext
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+    }
+    
     func applyFilters() async {
         page = 1
         hasNext = false

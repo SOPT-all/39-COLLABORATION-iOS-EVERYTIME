@@ -36,5 +36,5 @@ struct CourseSchedule {
     let dayOfWeek: String
     let startTime: String
     let endTime: String
-    let classroom: String
+    let classroom: String?
 }

@@ -52,7 +52,11 @@ struct TimetableView: View {
                     }
                 }
                 
-                TimetableListView(courses: viewModel.courses)
+                TimetableListView(courses: viewModel.courses) {
+                    Task {
+                        await viewModel.loadNextPage()
+                    }
+                }
             }
             .task {
                 await viewModel.loadCourses()

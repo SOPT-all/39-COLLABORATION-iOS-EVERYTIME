@@ -21,9 +21,11 @@ final class ReviewCheckViewModel {
     
     private(set) var page = 1
     private(set) var hasNext = false
+    private(set) var selectedKeywordId: Int64?
     
     private let sectionId: Int64
     private let pageSize = 10
+    
     
     init(sectionId: Int64) {
         self.sectionId = sectionId
@@ -39,6 +41,7 @@ final class ReviewCheckViewModel {
         do {
             let response = try await ReviewService.shared.fetchReviews(
                 sectionID: sectionId,
+                keywordID: selectedKeywordId,
                 sort: .latest,
                 page: page,
                 size: pageSize
@@ -58,5 +61,11 @@ final class ReviewCheckViewModel {
             errorMessage = "강의평을 불러오지 못했습니다."
             print(error)
         }
+    }
+    
+    func selectKeyword(_ id: Int64?) async {
+        selectedKeywordId = (selectedKeywordId == id) ? nil : id
+        page = 1
+        await loadReviews()
     }
 }

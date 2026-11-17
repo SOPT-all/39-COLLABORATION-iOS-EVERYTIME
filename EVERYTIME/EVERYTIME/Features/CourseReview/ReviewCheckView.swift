@@ -8,24 +8,28 @@
 import SwiftUI
 
 struct ReviewCheckView: View {
-    private let categories = ["전체", "교수님", "과제", "시험", "팀 프로젝트"]
-    @State private var selected = "교수님"
+    @State private var viewModel: ReviewCheckViewModel
     
+    init(sectionId: Int64) {
+        _viewModel = State(initialValue: ReviewCheckViewModel(sectionId: sectionId))
+    }
+
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
-                TopBar(title: "AI와창의적문제해결 강의실")
+                TopBar(title: viewModel.lecture?.courseName ?? "")
                     .padding(.top, 4)
                     .padding(.bottom, 6)
                 
                 HStack(spacing: 0) {
-                    Text("3.67")
+                    Text("\(viewModel.lecture?.averageGradePoint ?? 0)")
                         .head1Style()
                         .foregroundStyle(.neutral900)
                         .padding(.trailing, 10)
                         .padding(.leading, 22)
                     
-                    Score(size: .lg, rating: 4)
+                    Score(size: .lg, rating: viewModel.lecture?.averageGradePoint ?? 0)
+                        
                     
                     Spacer()
                     
@@ -38,8 +42,8 @@ struct ReviewCheckView: View {
                 
                 ScrollView(.horizontal) {
                     HStack(spacing: 5) {
-                        ForEach(categories, id: \.self) { category in
-                            ChipButton(title: category, style: .sm(count: 1), isSelected: selected == category, action: { selected = category } )
+                        ForEach(viewModel.keywords) { keyword in
+                            ChipButton(title: keyword.name, style: .sm(count: keyword.count), isSelected: true)
                         }
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -47,7 +51,7 @@ struct ReviewCheckView: View {
                 .padding(.horizontal, 16)
                 .scrollIndicators(.hidden)
                 
-                CourseReviewView()
+                CourseReviewView(reviews: viewModel.reviews)
             }
             
             VStack(spacing: 0) {
@@ -63,5 +67,12 @@ struct ReviewCheckView: View {
                     )
             }
         }
+        .task {
+            await viewModel.loadReviews()
+        }
     }
+}
+
+#Preview {
+    ReviewCheckView(sectionId: 1)
 }

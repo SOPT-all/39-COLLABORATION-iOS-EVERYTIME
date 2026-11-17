@@ -31,7 +31,7 @@ final class ReviewService {
         
         let reviewsPath = "/api/v1/sections/\(sectionID)/reviews"
         let path = keywordID.map { "\(reviewsPath)/keywords/\($0)" } ?? reviewsPath
-        var endpointURL = url.appending(path: path)
+        let endpointURL = url.appending(path: path)
         
         guard var components = URLComponents(
             url: endpointURL,
@@ -55,7 +55,7 @@ final class ReviewService {
         return request
     }
     
-    func fetchReviews(sectionID: Int64, sort: ReviewsSort? = nil, page: Int?, size: Int?) async throws -> LectureReviewListResponseDTO {
+    func fetchReviews(sectionID: Int64, keywordID: Int64? = nil, sort: ReviewsSort? = nil, page: Int?, size: Int?) async throws -> LectureReviewListResponseDTO {
         var queryItems: [URLQueryItem] = []
         
         if let sort {
@@ -70,7 +70,7 @@ final class ReviewService {
             queryItems.append(URLQueryItem(name: "size", value: "\(size)"))
         }
         
-        let request = try makeRequest(method: "GET", sectionID: sectionID, queryItems: queryItems)
+        let request = try makeRequest(method: "GET", sectionID: sectionID, keywordID: keywordID, queryItems: queryItems)
         
         let (data, response) = try await URLSession.shared.data(for: request)
         

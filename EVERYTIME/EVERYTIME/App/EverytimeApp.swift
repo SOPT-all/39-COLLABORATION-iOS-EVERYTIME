@@ -3,7 +3,9 @@ import SwiftUI
 @main struct EverytimeApp: App {
     var body: some Scene {
         WindowGroup {
-            TimetableView()
+            NavigationStack {
+                TimetableView()
+            }
         }
     }
 }

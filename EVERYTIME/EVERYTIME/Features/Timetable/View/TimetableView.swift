@@ -10,6 +10,7 @@ import SwiftUI
 struct TimetableView: View {
     @State private var courseSearchViewModel = CourseSearchViewModel()
     @State private var timetableViewModel = TimetableViewModel()
+    @State private var isTimeFilterPresented = false
     
     private let timetableColors: [Color] = [
         .timetableCoral,
@@ -45,7 +46,10 @@ struct TimetableView: View {
                 TimetableFilterSection(
                     selectedCategoryId: $courseSearchViewModel.selectedCategoryId,
                     hideTaken: $courseSearchViewModel.hideTaken,
-                    hideRestricted: $courseSearchViewModel.hideRestricted
+                    hideRestricted: $courseSearchViewModel.hideRestricted,
+                    onTimeTap: {
+                        isTimeFilterPresented = true
+                    }
                 )
                 .onChange(of: courseSearchViewModel.selectedCategoryId) { _, _ in
                     Task {
@@ -73,6 +77,10 @@ struct TimetableView: View {
         .task {
             await timetableViewModel.loadTimetable()
             await courseSearchViewModel.loadCourses()
+        }
+        .navigationDestination(isPresented: $isTimeFilterPresented) {
+            TimeFilterView(lessons: lessons)
+                .toolbar(.hidden, for: .navigationBar)
         }
     }
     

@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct TimeFilterView: View {
+    let lessons: [TimetableLesson]
     @State private var selectedSlots: Set<TimeSlot> = []
+    
+    @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -42,9 +45,13 @@ struct TimeFilterView: View {
     
     private var header: some View {
         HStack(alignment: .center, spacing: 8) {
-            Image(.close)
-                .resizable()
-                .frame(width: 24, height: 24)
+            Button {
+                dismiss()
+            } label: {
+                Image(.close)
+                    .resizable()
+                    .frame(width: 24, height: 24)
+            }
             
             Spacer()
             
@@ -60,8 +67,4 @@ struct TimeFilterView: View {
         .padding(.horizontal, 16)
         .padding(.top, 12)
     }
-}
-
-#Preview {
-    TimeFilterView()
 }

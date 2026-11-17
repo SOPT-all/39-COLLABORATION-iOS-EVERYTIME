@@ -39,9 +39,9 @@ final class ReviewCheckViewModel {
         do {
             let response = try await ReviewService.shared.fetchReviews(
                 sectionID: sectionId,
-                sort: nil,
-                page: 1,
-                size: 10
+                sort: .latest,
+                page: page,
+                size: pageSize
             )
             guard let result = response.data?.toDomain() else {
                 errorMessage = response.message

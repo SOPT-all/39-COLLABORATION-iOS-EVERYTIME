@@ -28,7 +28,8 @@ struct ReviewCheckView: View {
                         .padding(.trailing, 10)
                         .padding(.leading, 22)
                     
-                    Score(size: .lg, rating: 4)
+                    Score(size: .lg, rating: viewModel.lecture?.averageGradePoint ?? 0)
+                        
                     
                     Spacer()
                     

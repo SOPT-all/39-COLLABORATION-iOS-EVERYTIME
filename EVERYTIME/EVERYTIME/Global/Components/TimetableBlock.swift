@@ -14,8 +14,12 @@ struct TimetableBlock: View {
         VStack(alignment: .leading, spacing: 2) {
             Text(lesson.title)
                 .body5Style()
-            Text(lesson.professor)
-                .cap5Style()
+                .fixedSize(horizontal: false, vertical: true)
+            
+            if !lesson.professor.isEmpty {
+                Text(lesson.professor)
+                    .cap5Style()
+            }
         }
         .foregroundStyle(.white)
         .padding(4)

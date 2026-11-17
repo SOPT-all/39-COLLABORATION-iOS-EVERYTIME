@@ -8,59 +8,79 @@
 import SwiftUI
 
 struct TimetableView: View {
-    @State private var viewModel = CourseSearchViewModel()
+    @State private var courseSearchViewModel = CourseSearchViewModel()
+    @State private var timetableViewModel = TimetableViewModel()
+    @State private var isTimeFilterPresented = false
+    
+    private let timetableColors: [Color] = [
+        .timetableCoral,
+        .timetableOrange,
+        .timetableGreen,
+        .timetableMint,
+        .timetableBlue,
+        .timetablePurple,
+        .timetableOlive,
+        .timetableRose,
+        .timetableGray
+    ]
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             VStack(spacing: 6) {
                 header
                 
-                Timetable(
-                    lessons: [
-                        .init(day: 0, start: 9, end: 11, title: "교내인턴",
-                              professor: "", color: .timetableCoral),
-                        .init(day: 2, start: 11, end: 13.5, title: "사진디자인",
-                              professor: "조형예술", color: .timetableGreen)
-                    ],
-                    days: ["월", "화", "수", "목", "금"],
-                    startHour: 9,
-                    endHour: 14
-                )
-                .padding(.horizontal, 8)
+                ScrollView {
+                    Timetable(
+                        lessons: lessons,
+                        days: ["월", "화", "수", "목", "금"],
+                        startHour: 9,
+                        endHour: 20
+                    )
+                    .padding(.horizontal, 8)
+                }
+                .frame(height: 220)
             }
             .padding(.bottom, 14)
             
             VStack(alignment: .leading, spacing: 12) {
                 TimetableFilterSection(
-                    selectedCategoryId: $viewModel.selectedCategoryId,
-                    hideTaken: $viewModel.hideTaken,
-                    hideRestricted: $viewModel.hideRestricted
+                    selectedCategoryId: $courseSearchViewModel.selectedCategoryId,
+                    hideTaken: $courseSearchViewModel.hideTaken,
+                    hideRestricted: $courseSearchViewModel.hideRestricted,
+                    onTimeTap: {
+                        isTimeFilterPresented = true
+                    }
                 )
-                .onChange(of: viewModel.selectedCategoryId) { _, _ in
+                .onChange(of: courseSearchViewModel.selectedCategoryId) { _, _ in
                     Task {
-                        await viewModel.applyFilters()
+                        await courseSearchViewModel.applyFilters()
                     }
                 }
-                .onChange(of: viewModel.hideTaken) { _, _ in
+                .onChange(of: courseSearchViewModel.hideTaken) { _, _ in
                     Task {
-                        await viewModel.applyFilters()
+                        await courseSearchViewModel.applyFilters()
                     }
                 }
-                .onChange(of: viewModel.hideRestricted) { _, _ in
+                .onChange(of: courseSearchViewModel.hideRestricted) { _, _ in
                     Task {
-                        await viewModel.applyFilters()
+                        await courseSearchViewModel.applyFilters()
                     }
                 }
                 
-                TimetableListView(courses: viewModel.courses) {
+                TimetableListView(courses: courseSearchViewModel.courses) {
                     Task {
-                        await viewModel.loadNextPage()
+                        await courseSearchViewModel.loadNextPage()
                     }
                 }
             }
-            .task {
-                await viewModel.loadCourses()
-            }
+        }
+        .task {
+            await timetableViewModel.loadTimetable()
+            await courseSearchViewModel.loadCourses()
+        }
+        .navigationDestination(isPresented: $isTimeFilterPresented) {
+            TimeFilterView(lessons: lessons)
+                .toolbar(.hidden, for: .navigationBar)
         }
     }
     
@@ -78,6 +98,58 @@ struct TimetableView: View {
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 8)
+    }
+    
+    private var lessons: [TimetableLesson] {
+        timetableViewModel.timetable.flatMap { entry in
+            entry.times.compactMap { time -> TimetableLesson? in
+                guard
+                    let day = dayIndex(time.dayOfWeek),
+                    let start = hourValue(time.startTime),
+                    let end = hourValue(time.endTime),
+                    end > start
+                else {
+                    return nil
+                }
+                
+                return TimetableLesson(
+                    day: day,
+                    start: start,
+                    end: end,
+                    title: entry.courseName,
+                    professor: "",
+                    color: timetableColors[Int(entry.id % Int64(timetableColors.count))]
+                )
+            }
+        }
+    }
+    
+    private func dayIndex(_ value: String) -> Int? {
+        switch value {
+        case "MON": return 0
+        case "TUE": return 1
+        case "WED": return 2
+        case "THU": return 3
+        case "FRI": return 4
+        case "SAT": return 5
+        case "SUN": return 6
+        default: return nil
+        }
+    }
+    
+    private func hourValue(_ value: String) -> Double? {
+        let parts = value.split(separator: ":")
+        guard parts.count == 3,
+              let hour = Int(parts[0]),
+              let minute = Int(parts[1]),
+              let second = Int(parts[2]),
+              (0...23).contains(hour),
+              (0...59).contains(minute),
+              (0...59).contains(second) else {
+            return nil
+        }
+
+        return Double(hour) + Double(minute) / 60 + Double(second) / 3600
     }
 }
 

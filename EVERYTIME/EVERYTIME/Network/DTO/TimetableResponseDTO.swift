@@ -29,3 +29,23 @@ struct TimetableResponseDTO: Decodable {
         let endTime: String
     }
 }
+
+extension TimetableResponseDTO.TimetableEntryDTO {
+    func toDomain() -> TimetableEntry {
+        TimetableEntry(
+            id: entryId,
+            courseName: courseName,
+            times: times.map { $0.toDomain() }
+        )
+    }
+}
+
+extension TimetableResponseDTO.TimetableTimeDTO {
+    func toDomain() -> TimetableTime {
+        TimetableTime(
+            dayOfWeek: dayOfWeek,
+            startTime: startTime,
+            endTime: endTime
+        )
+    }
+}

@@ -11,6 +11,7 @@ struct TimetableFilterSection: View {
     @Binding var selectedCategoryId: Int64?
     @Binding var hideTaken: Bool
     @Binding var hideRestricted: Bool
+    let onTimeTap: () -> Void
     
     @State private var showingCategories = false
     private var selectedCategoryName: String {
@@ -47,7 +48,9 @@ struct TimetableFilterSection: View {
                 
                 ChipButton(title: "검색어", style: .md(caption: "없음"), isSelected: false)
                 ChipButton(title: "정렬", style: .md(caption: "기본"), isSelected: false)
-                ChipButton(title: "시간", style: .md(caption: "전체"), isSelected: false)
+                
+                ChipButton(title: "시간", style: .md(caption: "전체"), isSelected: false, action: onTimeTap)
+                
                 ChipButton(title: "학년", style: .md(caption: "전체"), isSelected: false)
                 ChipButton(title: "구분", style: .md(caption: "전체"), isSelected: false)
                     .padding(.trailing, 16)

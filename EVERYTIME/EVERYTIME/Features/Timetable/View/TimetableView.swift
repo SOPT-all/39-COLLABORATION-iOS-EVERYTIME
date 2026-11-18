@@ -11,6 +11,7 @@ struct TimetableView: View {
     @State private var courseSearchViewModel = CourseSearchViewModel()
     @State private var timetableViewModel = TimetableViewModel()
     @State private var isTimeFilterPresented = false
+    @State private var selectedTimeSlots: Set<TimeSlot> = []
     
     private let timetableColors: [Color] = [
         .timetableCoral,
@@ -79,8 +80,15 @@ struct TimetableView: View {
             await courseSearchViewModel.loadCourses()
         }
         .navigationDestination(isPresented: $isTimeFilterPresented) {
-            TimeFilterView(lessons: lessons)
-                .toolbar(.hidden, for: .navigationBar)
+            TimeFilterView(
+                lessons: lessons,
+                initialSlots: courseSearchViewModel.selectedTimeSlots
+            ) { slots in
+                Task {
+                    await courseSearchViewModel.setTimeSlots(slots: slots)
+                }
+            }
+            .toolbar(.hidden, for: .navigationBar)
         }
     }
     

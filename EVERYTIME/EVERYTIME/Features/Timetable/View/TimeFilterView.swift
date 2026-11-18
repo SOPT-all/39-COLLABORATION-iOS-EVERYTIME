@@ -9,9 +9,20 @@ import SwiftUI
 
 struct TimeFilterView: View {
     let lessons: [TimetableLesson]
-    @State private var selectedSlots: Set<TimeSlot> = []
+    let onApply: (Set<TimeSlot>) -> Void
     
+    @State private var selectedSlots: Set<TimeSlot> = []
     @Environment(\.dismiss) private var dismiss
+    
+    init(
+        lessons: [TimetableLesson],
+        initialSlots: Set<TimeSlot>,
+        onApply: @escaping (Set<TimeSlot>) -> Void
+    ) {
+        self.lessons = lessons
+        self.onApply = onApply
+        _selectedSlots = State(initialValue: initialSlots)
+    }
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -52,7 +63,12 @@ struct TimeFilterView: View {
             
             Spacer()
             
-            PrimaryButton(text: "적용")
+            Button {
+                onApply(selectedSlots)
+                dismiss()
+            } label: {
+                PrimaryButton(text: "적용")
+            }
         }
         .padding(.horizontal, 16)
         .padding(.top, 12)

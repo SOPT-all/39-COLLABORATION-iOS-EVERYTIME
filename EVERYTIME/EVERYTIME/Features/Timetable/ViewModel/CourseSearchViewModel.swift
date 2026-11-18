@@ -13,6 +13,7 @@ import Observation
 final class CourseSearchViewModel {
 
     private(set) var courses: [Course] = []
+    var selectedTimeSlots: Set<TimeSlot> = []
 
     private(set) var isLoading = false
     private(set) var isLoadingMore = false
@@ -92,5 +93,10 @@ final class CourseSearchViewModel {
         page = 1
         hasNext = false
         await loadCourses()
+    }
+    
+    func setTimeSlots(slots: Set<TimeSlot>) async {
+        selectedTimeSlots = slots
+        await applyFilters()
     }
 }

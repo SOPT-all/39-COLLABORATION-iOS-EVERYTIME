@@ -39,6 +39,7 @@ struct TimetableView: View {
                     .padding(.horizontal, 8)
                 }
                 .frame(height: 220)
+                .scrollIndicators(.hidden)
             }
             .padding(.bottom, 14)
             
@@ -47,8 +48,12 @@ struct TimetableView: View {
                     selectedCategoryId: $courseSearchViewModel.selectedCategoryId,
                     hideTaken: $courseSearchViewModel.hideTaken,
                     hideRestricted: $courseSearchViewModel.hideRestricted,
+                    selectedTimeSlots: courseSearchViewModel.selectedTimeSlots,
                     onTimeTap: {
                         isTimeFilterPresented = true
+                    },
+                    onTimeClear: {
+                        courseSearchViewModel.setTimeSlots(slots: [])
                     }
                 )
                 .onChange(of: courseSearchViewModel.selectedCategoryId) { _, _ in
@@ -79,8 +84,13 @@ struct TimetableView: View {
             await courseSearchViewModel.loadCourses()
         }
         .navigationDestination(isPresented: $isTimeFilterPresented) {
-            TimeFilterView(lessons: lessons)
-                .toolbar(.hidden, for: .navigationBar)
+            TimeFilterView(
+                lessons: lessons,
+                initialSlots: courseSearchViewModel.selectedTimeSlots
+            ) { slots in
+                courseSearchViewModel.setTimeSlots(slots: slots)
+            }
+            .toolbar(.hidden, for: .navigationBar)
         }
     }
     

@@ -13,7 +13,7 @@ struct ReviewCheckView: View {
     init(sectionId: Int64) {
         _viewModel = State(initialValue: ReviewCheckViewModel(sectionId: sectionId))
     }
-
+    
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
@@ -29,7 +29,6 @@ struct ReviewCheckView: View {
                         .padding(.leading, 22)
                     
                     Score(size: .lg, rating: viewModel.lecture?.averageGradePoint ?? 0)
-                        
                     
                     Spacer()
                     
@@ -43,7 +42,16 @@ struct ReviewCheckView: View {
                 ScrollView(.horizontal) {
                     HStack(spacing: 5) {
                         ForEach(viewModel.keywords) { keyword in
-                            ChipButton(title: keyword.name, style: .sm(count: keyword.count), isSelected: true)
+                            ChipButton(
+                                title: keyword.name,
+                                style: .sm(count: keyword.count),
+                                isSelected: keyword.id == viewModel.selectedKeywordId,
+                                action: {
+                                    Task {
+                                        await viewModel.selectKeyword(keyword.id)
+                                    }
+                                }
+                            )
                         }
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)

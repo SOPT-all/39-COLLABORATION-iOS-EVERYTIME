@@ -53,7 +53,9 @@ struct TimetableView: View {
                         isTimeFilterPresented = true
                     },
                     onTimeClear: {
-                        courseSearchViewModel.setTimeSlots(slots: [])
+                        Task {
+                            await courseSearchViewModel.setTimeSlots(slots: [])
+                        }
                     }
                 )
                 .onChange(of: courseSearchViewModel.selectedCategoryId) { _, _ in
@@ -88,7 +90,9 @@ struct TimetableView: View {
                 lessons: lessons,
                 initialSlots: courseSearchViewModel.selectedTimeSlots
             ) { slots in
-                courseSearchViewModel.setTimeSlots(slots: slots)
+                Task {
+                    await courseSearchViewModel.setTimeSlots(slots: slots)
+                }
             }
             .toolbar(.hidden, for: .navigationBar)
         }

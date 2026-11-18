@@ -13,6 +13,7 @@ struct CourseRequestDTO {
     let semester: String?
     let hideTaken: Bool?
     let hideRestricted: Bool?
+    let times: [String]?
     let sort: String?
     let page: Int?
     let size: Int?

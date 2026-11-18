@@ -26,8 +26,8 @@ struct SecondaryButton: View {
                 .padding(.horizontal, 12)
                 .padding(.vertical, 5)
                 .frame(height: 27)
-                .overlay {
-                    Capsule().stroke(.neutral300, lineWidth: 1)
+                .background {
+                    Capsule().fill(.white).stroke(.neutral300, lineWidth: 1)
                 }
         case .md:
             Text(text)
@@ -36,8 +36,8 @@ struct SecondaryButton: View {
                 .padding(.horizontal, 12)
                 .padding(.vertical, 7)
                 .frame(height: 30)
-                .overlay {
-                    Capsule().stroke(.neutral300, lineWidth: 1)
+                .background {
+                    Capsule().fill(.white).stroke(.neutral300, lineWidth: 1)
                 }
         case .red:
             Text(text)

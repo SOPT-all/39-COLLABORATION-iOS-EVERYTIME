@@ -39,6 +39,7 @@ struct TimetableView: View {
                     .padding(.horizontal, 8)
                 }
                 .frame(height: 220)
+                .scrollIndicators(.hidden)
             }
             .padding(.bottom, 14)
             

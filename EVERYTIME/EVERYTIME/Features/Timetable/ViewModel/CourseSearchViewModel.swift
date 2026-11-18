@@ -95,8 +95,7 @@ final class CourseSearchViewModel {
         await loadCourses()
     }
     
-    func setTimeSlots(slots: Set<TimeSlot>) async {
+    func setTimeSlots(slots: Set<TimeSlot>) {
         selectedTimeSlots = slots
-        await applyFilters()
     }
 }

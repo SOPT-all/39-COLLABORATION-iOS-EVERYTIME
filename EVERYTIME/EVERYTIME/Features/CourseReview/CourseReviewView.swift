@@ -19,14 +19,14 @@ struct CourseReviewView: View {
     var body: some View {
         List(reviews) { review in
             ReviewRowView(author: review.author, caption: review.content)
-                .padding(.top, 16)
-                .padding(.bottom, review.id == reviews.last?.id ? 72 : 16)
+                .padding(.vertical, 16)
                 .listRowInsets(EdgeInsets())
                 .alignmentGuide(.listRowSeparatorLeading) { _ in 0 }
                 .alignmentGuide(.listRowSeparatorTrailing) { $0.width }
         }
         .padding(.horizontal, 8)
         .listStyle(.plain)
+        .contentMargins(.bottom, 72, for: .scrollContent)
         .scrollContentBackground(.hidden)
         .background(Color.white)
     }

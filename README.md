@@ -2,10 +2,7 @@
 > PLAY SOPT 39기 합동세미나 모바일 앱 4조 iOS | 에브리타임 🎓
 
 <br>
-
-<img width="100%" alt="에브리타임_1차 과제-1" src="" />
-<img width="100%" alt="에브리타임_1차 과제-3" src="" />
-
+<img width="1920" height="1080" alt="everytime_slide_01" src="https://github.com/user-attachments/assets/215e53e2-c371-44dc-84e4-b27df031795a" />
 <br>
 
 ## Redesign Points

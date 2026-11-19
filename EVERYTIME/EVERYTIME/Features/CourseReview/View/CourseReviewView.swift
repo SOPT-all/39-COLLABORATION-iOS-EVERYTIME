@@ -26,6 +26,7 @@ struct CourseReviewView: View {
         }
         .padding(.horizontal, 8)
         .listStyle(.plain)
+        .contentMargins(.bottom, 72, for: .scrollContent)
         .scrollContentBackground(.hidden)
         .background(Color.white)
     }

@@ -14,6 +14,24 @@ final class CourseSearchViewModel {
 
     private(set) var courses: [Course] = []
     var selectedTimeSlots: Set<TimeSlot> = []
+    
+    private var timesQuery: [String]? {
+        guard !selectedTimeSlots.isEmpty else { return nil }
+
+        let days = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"]
+
+        return selectedTimeSlots
+            .sorted {
+                $0.day == $1.day
+                    ? $0.hour < $1.hour
+                    : $0.day < $1.day
+            }
+            .map { slot in
+                let start = String(format: "%02d:00", slot.hour)
+                let end = String(format: "%02d:00", slot.hour + 1)
+                return "\(days[slot.day])-\(start)-\(end)"
+            }
+    }
 
     private(set) var isLoading = false
     private(set) var isLoadingMore = false
@@ -43,6 +61,7 @@ final class CourseSearchViewModel {
                     semester: nil,
                     hideTaken: hideTaken,
                     hideRestricted: hideRestricted,
+                    times: timesQuery,
                     sort: nil,
                     page: 1,
                     size: 10
@@ -73,6 +92,7 @@ final class CourseSearchViewModel {
                     semester: nil,
                     hideTaken: hideTaken,
                     hideRestricted: hideRestricted,
+                    times: timesQuery,
                     sort: nil,
                     page: nextPage,
                     size: 10
@@ -95,7 +115,10 @@ final class CourseSearchViewModel {
         await loadCourses()
     }
     
-    func setTimeSlots(slots: Set<TimeSlot>) {
+    func setTimeSlots(slots: Set<TimeSlot>) async {
+        guard selectedTimeSlots != slots else { return }
+        
         selectedTimeSlots = slots
+        await applyFilters()
     }
 }

@@ -22,86 +22,103 @@ struct Card: View {
     let capacity: Int
     let info: String
     let averageGradePoint: Double
+    let onReviewTap: (Int64) -> Void
     
     private var isSelected: Bool {
         selectedCardID == id
     }
     
     var body: some View {
-        Button {
-            selectedCardID = isSelected ? nil : id
-        } label: {
-            HStack(alignment: .top) {
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(lecture)
-                        .body2Style()
-                        .foregroundStyle(.neutral900)
-                    
-                    Text(professor)
-                        .body4Style()
-                        .foregroundStyle(.neutral900)
-                        .padding(.bottom, 6)
-                    
-                    Text(timeText)
-                        .cap1Style()
-                        .foregroundStyle(.neutral700)
-                    
-                    HStack(alignment: .center, spacing: 8) {
-                        Text("\(grade)학년")
-                        Text(type)
-                        Text("\(credit)학점")
-                        Text(code)
-                    }
-                    .cap1Style()
-                    .foregroundStyle(.neutral700)
-                    
-                    if (isSelected) {
-                        Text(info)
-                            .cap3Style()
-                            .foregroundStyle(.primary900)
-                            .padding(.top, 2)
+        VStack(alignment: .leading, spacing: 0) {
+            Button {
+                selectedCardID = isSelected ? nil : id
+            } label: {
+                HStack(alignment: .top) {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(lecture)
+                            .body2Style()
+                            .foregroundStyle(.neutral900)
+                        
+                        Text(professor)
+                            .body4Style()
+                            .foregroundStyle(.neutral900)
+                            .padding(.bottom, 6)
+                        
+                        Text(timeText)
+                            .cap1Style()
+                            .foregroundStyle(.neutral700)
                         
                         HStack(alignment: .center, spacing: 8) {
-                            SecondaryButton(size: .red, text: "시간표에 추가")
-                            SecondaryButton(size: .md, text: "강의평")
+                            Text("\(grade)학년")
+                            Text(type)
+                            Text("\(credit)학점")
+                            Text(code)
                         }
-                        .padding(.top, 2)
-                    }
-                }
-                
-                Spacer()
-                
-                VStack(alignment: .trailing) {
-                    VStack(alignment: .trailing, spacing: 2) {
-                        ScoreM(score: averageGradePoint)
-                            .padding(.bottom, 2)
+                        .cap1Style()
+                        .foregroundStyle(.neutral700)
                         
-                        HStack(spacing: 2) {
-                            Text("담은")
-                            Text("\(cartCount)")
-                        }
-                        
-                        HStack(spacing: 2) {
-                            Text("정원")
-                            Text("\(capacity)")
+                        if isSelected {
+                            Text(info)
+                                .cap3Style()
+                                .foregroundStyle(.primary900)
+                                .padding(.top, 2)
                         }
                     }
-                    .cap5Style()
-                    .foregroundStyle(.neutral400)
-                    .padding(.trailing, 8)
                     
-                    StateDot(isFull: cartCount > capacity)
+                    Spacer()
+                    
+                    VStack(alignment: .trailing) {
+                        VStack(alignment: .trailing, spacing: 2) {
+                            ScoreM(score: averageGradePoint)
+                                .padding(.bottom, 2)
+                            
+                            HStack(spacing: 2) {
+                                Text("담은")
+                                Text("\(cartCount)")
+                            }
+                            
+                            HStack(spacing: 2) {
+                                Text("정원")
+                                Text("\(capacity)")
+                            }
+                        }
+                        .cap5Style()
+                        .foregroundStyle(.neutral400)
+                        .padding(.trailing, 8)
+                        
+                        StateDot(isFull: cartCount > capacity)
+                    }
+                    .padding(.top, 4)
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.top, 12)
+                .padding(.bottom, isSelected ? 0 : 12)
+                .padding(.leading, 16)
+                .padding(.trailing, 24)
+                .contentShape(Rectangle())
+            }
+            .buttonStyle(.plain)
+            
+            if isSelected {
+                HStack(alignment: .center, spacing: 8) {
+                    SecondaryButton(size: .red, text: "시간표에 추가")
+                    
+                    Button {
+                        guard let sectionId = Int64(id) else { return }
+                        onReviewTap(sectionId)
+                    } label: {
+                        SecondaryButton(size: .md, text: "강의평")
+                    }
+                    .buttonStyle(.plain)
                 }
                 .padding(.top, 4)
+                .padding(.leading, 16)
+                .padding(.bottom, 12)
             }
-            .padding(.vertical, 12)
-            .padding(.leading, 24)
-            .padding(.trailing, 16)
-            .frame(maxWidth: .infinity)
-            .background(
-                isSelected ? .primary100 : .white
-            )
         }
-        .buttonStyle(.plain)
+        .frame(maxWidth: .infinity)
+        .background(
+            isSelected ? .primary100 : .white
+        )
     }
 }

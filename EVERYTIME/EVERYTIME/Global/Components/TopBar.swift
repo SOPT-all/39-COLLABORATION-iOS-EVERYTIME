@@ -9,10 +9,16 @@ import SwiftUI
 
 struct TopBar: View {
     let title: String
+    @Environment(\.dismiss) private var dismiss
+    
     var body: some View {
         HStack {
-            Image(.back)
-                
+            Button {
+                dismiss()
+            } label: {
+                Image(.back)
+            }
+            
             Spacer()
             
             Text(title)
@@ -23,5 +29,6 @@ struct TopBar: View {
             Image(.close)
         }
         .padding(.horizontal, 10)
+        .padding(.vertical, 16)
     }
 }

@@ -67,6 +67,9 @@ final class CourseService {
         if let value = query.hideRestricted {
             items.append(.init(name: "hideRestricted", value: String(value)))
         }
+        query.times?.forEach { time in
+            items.append(.init(name: "times", value: time))
+        }
         if let value = query.sort {
             items.append(.init(name: "sort", value: value))
         }

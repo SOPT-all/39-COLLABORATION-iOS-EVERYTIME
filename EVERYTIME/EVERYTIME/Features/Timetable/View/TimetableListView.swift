@@ -10,6 +10,7 @@ import SwiftUI
 struct TimetableListView: View {
     let courses: [Course]
     let onLoadMore: () -> Void
+    let onReviewTap: (Int64) -> Void
     @State private var selectedCardID: String?
     
     var body: some View {
@@ -32,7 +33,8 @@ struct TimetableListView: View {
                                 cartCount: section.savedCount,
                                 capacity: section.capacity ?? 0,
                                 info: course.targetText ?? "",
-                                averageGradePoint: section.averageGradePoint
+                                averageGradePoint: section.averageGradePoint,
+                                onReviewTap: onReviewTap
                             )
                         } else {
                             Accordion(
@@ -52,7 +54,8 @@ struct TimetableListView: View {
                                         cartCount: section.savedCount,
                                         capacity: section.capacity ?? 0,
                                         info: course.targetText ?? "",
-                                        averageGradePoint: section.averageGradePoint
+                                        averageGradePoint: section.averageGradePoint,
+                                        onReviewTap: onReviewTap
                                     )
                                 }, onCollapse: {
                                     withAnimation {

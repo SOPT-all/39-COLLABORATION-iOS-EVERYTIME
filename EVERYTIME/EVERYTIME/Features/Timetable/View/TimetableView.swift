@@ -11,6 +11,8 @@ struct TimetableView: View {
     @State private var courseSearchViewModel = CourseSearchViewModel()
     @State private var timetableViewModel = TimetableViewModel()
     @State private var isTimeFilterPresented = false
+    @State private var reviewSectionID: Int64?
+    @State private var isReviewPresented = false
     
     private let timetableColors: [Color] = [
         .timetableCoral,
@@ -53,7 +55,9 @@ struct TimetableView: View {
                         isTimeFilterPresented = true
                     },
                     onTimeClear: {
-                        courseSearchViewModel.setTimeSlots(slots: [])
+                        Task {
+                            await courseSearchViewModel.setTimeSlots(slots: [])
+                        }
                     }
                 )
                 .onChange(of: courseSearchViewModel.selectedCategoryId) { _, _ in
@@ -72,9 +76,22 @@ struct TimetableView: View {
                     }
                 }
                 
-                TimetableListView(courses: courseSearchViewModel.courses) {
-                    Task {
-                        await courseSearchViewModel.loadNextPage()
+                TimetableListView(
+                    courses: courseSearchViewModel.courses,
+                    onLoadMore: {
+                        Task {
+                            await courseSearchViewModel.loadNextPage()
+                        }
+                    },
+                    onReviewTap: { sectionId in
+                        reviewSectionID = sectionId
+                        isReviewPresented = true
+                    }
+                )
+                .navigationDestination(isPresented: $isReviewPresented) {
+                    if let reviewSectionID {
+                        ReviewCheckView(sectionId: reviewSectionID)
+                            .toolbar(.hidden, for: .navigationBar)
                     }
                 }
             }
@@ -88,7 +105,9 @@ struct TimetableView: View {
                 lessons: lessons,
                 initialSlots: courseSearchViewModel.selectedTimeSlots
             ) { slots in
-                courseSearchViewModel.setTimeSlots(slots: slots)
+                Task {
+                    await courseSearchViewModel.setTimeSlots(slots: slots)
+                }
             }
             .toolbar(.hidden, for: .navigationBar)
         }

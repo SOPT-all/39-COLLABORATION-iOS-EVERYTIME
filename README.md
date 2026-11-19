@@ -49,7 +49,31 @@
 
 <br>
 
-- (구현 내용 작성)
+**시간표 / 강의 검색 View**
+- 상단에 시간표 구현(`Timetable()`)
+  - 내 시간표 API 데이터를 요일 · 시작/종료 시간으로 변환해 강의 블록으로 표시
+  - 강의마다 시간표 색상을 지정해 구분
+- 시간표 아래에 강의 검색 목록 구현(`TimetableListView()`)
+  - 분반이 1개인 강의는 `Card()`로, 분반이 여러 개인 강의는 `Accordion()`으로 묶어서 노출
+  - 분반 묶음을 접을 때 해당 강의 위치로 스크롤 이동
+  - 목록 마지막 강의가 보일 때 다음 페이지를 불러오는 무한 스크롤 구현
+
+**필터**
+- 시간표와 목록 사이에 필터 영역 배치(`TimetableFilterSection()`)
+  - 전공/영역 칩(`ChipButton()`) 선택 시 전공필수 · 전공선택 · 공통교양 · 핵심교양 · 일반교양 메뉴 노출, 선택한 카테고리의 강의만 조회
+  - 이수한 강의 숨기기 · 수강 제한 강의 숨기기 체크박스(`Checkbox()`) 선택 시 해당 강의를 제외하고 조회
+  - 필터 변경 시 1페이지부터 다시 조회
+- 시간 칩 선택 시 시간 선택 화면으로 이동(`TimeFilterView()`)
+  - 요일 · 시간 그리드(`TimeFilterGridView()`)에서 원하는 시간대 선택
+  - 요일 혹은 시간 헤더를 누르면 해당 요일 · 시간 일괄 선택/해제
+  - 이미 담아둔 강의의 시간대는 딤 처리하여 표시
+  - 선택한 시간대는 시간 칩에 `월, 9~11시`처럼 연속된 시간끼리 묶어서 표시, 칩의 지우기 버튼으로 초기화
+
+**API 연동**
+- 강의 목록과 내 시간표 데이터는 API로 반영
+  - 선택한 카테고리 · 숨김 옵션 · 페이지를 요청 파라미터로 전달하여 강의 목록 반영(`CourseService`)
+  - 시간표 데이터는 `TimetableService`로 받아 도메인 모델로 변환하여 사용
+- `@Observable` 기반 `CourseSearchViewModel` · `TimetableViewModel`로 목록, 필터 선택, 로딩/에러 상태 관리
 
 </details>
 
@@ -58,7 +82,21 @@
 
 <br>
 
-- (구현 내용 작성)
+**강의평 View**
+- 강의평 목록을 `List` 기반 `CourseReviewView`로 구현
+  - 리뷰 한 줄(`ReviewRowView`)에 별점 · 작성자 · 본문 · 추천/신고 버튼 배치
+- 상단 헤더에 강의명(`TopBar`), 평균 평점과 별점(`Score`) 표시
+- 강의평 리스트 상단에 키워드 칩(`ChipButton`)을 가로 스크롤로 배치
+  - 칩 선택 시 해당 키워드 관련 강의평만 노출
+  - 이미 선택된 칩을 다시 선택하면 전체 강의평 노출
+- 하단 "평가하기" 버튼과 `NavigationTab`을 `safeAreaInset`으로 배치해 마지막 리뷰까지 가려지지 않게 처리
+
+**API 연동**
+- `ReviewService`로 강의평, 평점, 키워드 데이터를 API에서 받아 반영
+  - 선택한 키워드 ID로 필터링한 강의평 API를 호출해 키워드별 강의평 반영
+  - 응답 DTO를 도메인 모델로 변환(`toDomain()`)해 View에서 사용
+- `@Observable` 기반 `ReviewCheckViewModel`로 강의평 · 키워드 · 선택 상태 · 로딩/에러 상태 관리
+- 최신순(`latest`) 정렬로 조회
 
 </details>
 
@@ -288,44 +326,86 @@ EVERYTIME/
 ├── App/
 │   └── EverytimeApp.swift
 │
+├── Features/
+│   ├── CourseReview/
+│   │   ├── CourseReviewView.swift
+│   │   ├── ReviewCheckView.swift
+│   │   ├── ReviewCheckViewModel.swift
+│   │   └── ReviewRowView.swift
+│   │
+│   └── Timetable/
+│       ├── View/
+│       │   ├── TimeFilterGridView.swift
+│       │   ├── TimeFilterView.swift
+│       │   ├── TimetableFilterSection.swift
+│       │   ├── TimetableListView.swift
+│       │   └── TimetableView.swift
+│       │
+│       └── ViewModel/
+│           ├── CourseSearchViewModel.swift
+│           └── TimetableViewModel.swift
+│
 ├── Global/
 │   ├── Components/
+│   │   ├── Accordion.swift
+│   │   ├── Card.swift
+│   │   ├── Checkbox.swift
+│   │   ├── ChipButton.swift
+│   │   ├── IconLeftButton.swift
+│   │   ├── IconRightButton.swift
+│   │   ├── NavigationTab.swift
+│   │   ├── PrimaryButton.swift
+│   │   ├── Score.swift
+│   │   ├── ScoreM.swift
+│   │   ├── SecondaryButton.swift
+│   │   ├── SecondaryButton2.swift
+│   │   ├── StateDot.swift
+│   │   ├── Timetable.swift
+│   │   ├── TimetableBlock.swift
+│   │   └── TopBar.swift
+│   │
 │   └── Extensions/
+│       ├── Font+.swift
+│       ├── String+.swift
+│       └── View+.swift
 │
 ├── Models/
 │   ├── Course.swift
-│   ├── CourseSchedule.swift
-│   └── CourseReview.swift
+│   ├── CourseReview.swift
+│   └── TimetableEntry.swift
 │
 ├── Network/
 │   ├── DTO/
-│   └── Service/
-│       └── CourseService.swift
-│
-├── Features/
-│   ├── Timetable/
-│   │   ├── TimetableView.swift
-│   │   ├── TimetableViewModel.swift
-│   │   ├── TimetableGridView.swift
-│   │   ├── CourseBlockView.swift
-│   │   └── TimetableLayout.swift
+│   │   ├── CourseRequestDTO.swift
+│   │   ├── CourseResponseDTO.swift
+│   │   ├── LectureReviewListResponseDTO.swift
+│   │   └── TimetableResponseDTO.swift
 │   │
-│   ├── CourseSearch/
-│   │   ├── CourseSearchView.swift
-│   │   ├── CourseSearchViewModel.swift
-│   │   ├── CourseRowView.swift
-│   │   └── CourseGroupView.swift
+│   ├── Service/
+│   │   ├── CourseService.swift
+│   │   ├── ReviewService.swift
+│   │   └── TimetableService.swift
 │   │
-│   └── CourseReview/
-│       ├── CourseReviewView.swift
-│       ├── CourseReviewViewModel.swift
-│       └── ReviewRowView.swift
+│   └── NetworkError.swift
 │
-└── Resources/
-    ├── Assets.xcassets
-    ├── Fonts/
-    └── MockData/
+├── Resources/
+│   ├── Fonts/
+│   │   ├── Pretendard-Black.otf
+│   │   ├── Pretendard-Bold.otf
+│   │   ├── Pretendard-ExtraBold.otf
+│   │   ├── Pretendard-ExtraLight.otf
+│   │   ├── Pretendard-Light.otf
+│   │   ├── Pretendard-Medium.otf
+│   │   ├── Pretendard-Regular.otf
+│   │   ├── Pretendard-SemiBold.otf
+│   │   └── Pretendard-Thin.otf
+│   │
+│   └── Assets.xcassets
+│
+├── Config.xcconfig
+└── Info.plist
 ```
+
 
 <br>
 

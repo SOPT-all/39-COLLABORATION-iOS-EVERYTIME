@@ -1,6 +1,40 @@
 # 39-COLLABORATION-iOS-EVERYTIME
 > PLAY SOPT 39기 합동세미나 모바일 앱 4조 iOS | 에브리타임 🎓
 
+<br>
+
+<img width="100%" alt="에브리타임_1차 과제-1" src="" />
+<img width="100%" alt="에브리타임_1차 과제-3" src="" />
+
+<br>
+
+## Redesign Points
+
+<img width="100%" alt="개발파트_공유-1" src="https://github.com/user-attachments/assets/2b213412-86b4-4105-a1a2-3767f44c8561" />
+<img width="100%" alt="개발파트_공유-2" src="https://github.com/user-attachments/assets/b7b1d418-b746-44c9-bcfb-fa5b248d8345" />
+<img width="100%" alt="개발파트_공유-3" src="https://github.com/user-attachments/assets/daf5b81b-ce32-4375-832f-48ce5e515810"/>
+
+#### ✔︎ Point 1 · 수강 대상 강의만 골라 보기
+'미수강 강의만 보기'와 '수강 대상 강의만 보기' 체크박스를 추가했어요.
+이미 수강한 강의는 빼고, 내 전공에 맞는 강의만 바로 확인할 수 있어요.
+
+#### ✔︎ Point 2 · 같은 강의의 분반 묶음 토글
+같은 과목의 여러 분반이 따로 나열되던 목록을 한 그룹으로 묶고, 펼치기/접기 토글을 추가했어요.
+분반끼리 비교하기 쉽고, 목록 탐색 효율이 좋아졌어요.
+
+#### ✔︎ Point 3 · 리뷰 키워드 칩버튼 필터
+리뷰 본문 상단에 교수님 / 과제 / 시험 / 팀 프로젝트 키워드 칩버튼을 추가했어요.
+강의평을 하나씩 읽지 않아도 원하는 리뷰만 골라서 볼 수 있어요.
+
+#### ✔︎ Point 4 · 선택 키워드 하이라이트
+선택한 키워드와 관련된 단어와 유사 표현을 리뷰 본문에서 강조해서 보여줘요.
+<br>
+
+## 시연 영상
+
+| **강의 검색** | **강의평** | **시간표** |
+| :--: | :--: | :--: |
+| <img width="250" src="" /> | <img width="250" src="" /> | <img width="250" src="" /> |
 
 <br>
 
@@ -9,6 +43,27 @@
 | **이서영** | **전시언** |
 | :---: | :---: |
 | [<img width="200" height="200" src="https://github.com/user-attachments/assets/40d4ec25-802f-4d1c-b80f-12a170b0bf31" />](https://github.com/amie-lee) | [<img width="200" height="200" src="https://github.com/user-attachments/assets/4bfaff26-39f9-4f1b-a535-1a1981ff9d84" />](https://github.com/siiooin) |
+| `강의 검색 View` | `강의평 View` |
+
+### 상세 구현 내용
+
+<details>
+<summary><b>이서영</b></summary>
+
+<br>
+
+- (구현 내용 작성)
+
+</details>
+
+<details>
+<summary><b>전시언</b></summary>
+
+<br>
+
+- (구현 내용 작성)
+
+</details>
 
 <br>
 
@@ -79,7 +134,6 @@ SwiftUI의 선언형 UI와 Observation을 활용하여 화면과 상태 관리 �
 ![Figma](https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white)
 
 <br>
-
 
 ## 📏 Git Convention
 
@@ -284,3 +338,6 @@ EVERYTIME/
 - [StyleShare Swift Style Guide](https://github.com/StyleShare/swift-style-guide/)
 - [Apple SwiftUI Documentation](https://developer.apple.com/documentation/swiftui)
 - [Apple Observation Documentation](https://developer.apple.com/documentation/observation)
+<img width="1275" height="624" alt="스크린샷 2026-11-19 오후 4 33 27" src="https://github.com/user-attachments/assets/2b213412-86b4-4105-a1a2-3767f44c8561" />
+<img width="1920" height="1080" alt="everytime_slide_10" src="https://github.com/user-attachments/assets/8b0ec885-3ebc-483d-af0a-cfa064c6db29" />
+<img width="1276" height="636" alt="스크린샷 2026-11-19 오후 4 32 10" src="https://github.com/user-attachments/assets/d2dd4a03-d8dc-4a0f-b603-114b7e815695" />

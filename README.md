@@ -11,6 +11,8 @@
 <img width="100%" alt="개발파트_공유-2" src="https://github.com/user-attachments/assets/b7b1d418-b746-44c9-bcfb-fa5b248d8345" />
 <img width="100%" alt="개발파트_공유-3" src="https://github.com/user-attachments/assets/daf5b81b-ce32-4375-832f-48ce5e515810"/>
 
+<br>
+
 #### ✔︎ Point 1 · 수강 대상 강의만 골라 보기
 '미수강 강의만 보기'와 '수강 대상 강의만 보기' 체크박스를 추가했어요.
 이미 수강한 강의는 빼고, 내 전공에 맞는 강의만 바로 확인할 수 있어요.
@@ -23,15 +25,13 @@
 리뷰 본문 상단에 교수님 / 과제 / 시험 / 팀 프로젝트 키워드 칩버튼을 추가했어요.
 강의평을 하나씩 읽지 않아도 원하는 리뷰만 골라서 볼 수 있어요.
 
-#### ✔︎ Point 4 · 선택 키워드 하이라이트
-선택한 키워드와 관련된 단어와 유사 표현을 리뷰 본문에서 강조해서 보여줘요.
 <br>
 
 ## 시연 영상
 
-| **강의 검색** | **강의평** | **시간표** |
+| **강의 탐색** | **강의평** | **시간 선택** |
 | :--: | :--: | :--: |
-| <img width="250" src="" /> | <img width="250" src="" /> | <img width="250" src="" /> |
+| <img width="250" src="https://github.com/user-attachments/assets/5bbf6664-8d9e-4866-9287-1d8fd6d426cf" /> | <img width="250" src="https://github.com/user-attachments/assets/b06fcb71-ab22-4b34-a5be-ce4de53593aa" /> | <img width="250" src="https://github.com/user-attachments/assets/58a5a145-6ed3-4c7f-854c-de17244c4f75" /> |
 
 <br>
 
@@ -39,8 +39,8 @@
 
 | **이서영** | **전시언** |
 | :---: | :---: |
-| [<img width="200" height="200" src="https://github.com/user-attachments/assets/40d4ec25-802f-4d1c-b80f-12a170b0bf31" />](https://github.com/amie-lee) | [<img width="200" height="200" src="https://github.com/user-attachments/assets/4bfaff26-39f9-4f1b-a535-1a1981ff9d84" />](https://github.com/siiooin) |
-| `강의 검색 View` | `강의평 View` |
+| [<img width="400" height="400" src="https://github.com/user-attachments/assets/a5db28f3-86de-4df4-b3b2-a38af39ed1c4" />](https://github.com/amie-lee) | [<img width="400" height="400" src="https://github.com/user-attachments/assets/e58c1e24-38f4-4c4d-a5c3-a7738966d914" />](https://github.com/siiooin) |
+| `강의 탐색, 시간 선택 View` | `강의평 View` |
 
 ### 상세 구현 내용
 
@@ -49,7 +49,7 @@
 
 <br>
 
-**시간표 / 강의 검색 View**
+**시간표 / 강의 탐색 View**
 - 상단에 시간표 구현(`Timetable()`)
   - 내 시간표 API 데이터를 요일 · 시작/종료 시간으로 변환해 강의 블록으로 표시
   - 강의마다 시간표 색상을 지정해 구분
@@ -109,7 +109,7 @@
 | Language | Swift |
 | UI Framework | SwiftUI |
 | IDE | Xcode 27.1 |
-| Deployment Target | iOS 17 |
+| Deployment Target | iOS 17.6 |
 | Architecture | MVVM |
 
 <br>
@@ -323,87 +323,31 @@ SwiftUI 프로젝트의 일관된 코드 스타일과 유지보수성을 위해 
 
 ```text
 EVERYTIME/
-├── App/
-│   └── EverytimeApp.swift
-│
-├── Features/
-│   ├── CourseReview/
-│   │   ├── CourseReviewView.swift
-│   │   ├── ReviewCheckView.swift
-│   │   ├── ReviewCheckViewModel.swift
-│   │   └── ReviewRowView.swift
-│   │
-│   └── Timetable/
-│       ├── View/
-│       │   ├── TimeFilterGridView.swift
-│       │   ├── TimeFilterView.swift
-│       │   ├── TimetableFilterSection.swift
-│       │   ├── TimetableListView.swift
-│       │   └── TimetableView.swift
-│       │
-│       └── ViewModel/
-│           ├── CourseSearchViewModel.swift
-│           └── TimetableViewModel.swift
-│
-├── Global/
-│   ├── Components/
-│   │   ├── Accordion.swift
-│   │   ├── Card.swift
-│   │   ├── Checkbox.swift
-│   │   ├── ChipButton.swift
-│   │   ├── IconLeftButton.swift
-│   │   ├── IconRightButton.swift
-│   │   ├── NavigationTab.swift
-│   │   ├── PrimaryButton.swift
-│   │   ├── Score.swift
-│   │   ├── ScoreM.swift
-│   │   ├── SecondaryButton.swift
-│   │   ├── SecondaryButton2.swift
-│   │   ├── StateDot.swift
-│   │   ├── Timetable.swift
-│   │   ├── TimetableBlock.swift
-│   │   └── TopBar.swift
-│   │
-│   └── Extensions/
-│       ├── Font+.swift
-│       ├── String+.swift
-│       └── View+.swift
-│
-├── Models/
-│   ├── Course.swift
-│   ├── CourseReview.swift
-│   └── TimetableEntry.swift
-│
-├── Network/
-│   ├── DTO/
-│   │   ├── CourseRequestDTO.swift
-│   │   ├── CourseResponseDTO.swift
-│   │   ├── LectureReviewListResponseDTO.swift
-│   │   └── TimetableResponseDTO.swift
-│   │
-│   ├── Service/
-│   │   ├── CourseService.swift
-│   │   ├── ReviewService.swift
-│   │   └── TimetableService.swift
-│   │
-│   └── NetworkError.swift
-│
-├── Resources/
-│   ├── Fonts/
-│   │   ├── Pretendard-Black.otf
-│   │   ├── Pretendard-Bold.otf
-│   │   ├── Pretendard-ExtraBold.otf
-│   │   ├── Pretendard-ExtraLight.otf
-│   │   ├── Pretendard-Light.otf
-│   │   ├── Pretendard-Medium.otf
-│   │   ├── Pretendard-Regular.otf
-│   │   ├── Pretendard-SemiBold.otf
-│   │   └── Pretendard-Thin.otf
-│   │
-│   └── Assets.xcassets
-│
-├── Config.xcconfig
-└── Info.plist
+├── EVERYTIME.xcodeproj/
+└── EVERYTIME/
+    ├── App/
+    │   └── EverytimeApp.swift
+    ├── Features/
+    │   ├── CourseReview/
+    │   │   ├── Model/
+    │   │   ├── View/
+    │   │   └── ViewModel/
+    │   └── Timetable/
+    │       ├── Model/
+    │       ├── View/
+    │       └── ViewModel/
+    ├── Global/
+    │   ├── Components/
+    │   └── Extensions/
+    ├── Network/
+    │   ├── DTO/
+    │   ├── Service/
+    │   └── NetworkError.swift
+    ├── Resources/
+    │   ├── Assets.xcassets/
+    │   └── Fonts/
+    ├── Config.xcconfig
+    └── Info.plist
 ```
 
 
@@ -415,6 +359,3 @@ EVERYTIME/
 - [StyleShare Swift Style Guide](https://github.com/StyleShare/swift-style-guide/)
 - [Apple SwiftUI Documentation](https://developer.apple.com/documentation/swiftui)
 - [Apple Observation Documentation](https://developer.apple.com/documentation/observation)
-<img width="1275" height="624" alt="스크린샷 2026-11-19 오후 4 33 27" src="https://github.com/user-attachments/assets/2b213412-86b4-4105-a1a2-3767f44c8561" />
-<img width="1920" height="1080" alt="everytime_slide_10" src="https://github.com/user-attachments/assets/8b0ec885-3ebc-483d-af0a-cfa064c6db29" />
-<img width="1276" height="636" alt="스크린샷 2026-11-19 오후 4 32 10" src="https://github.com/user-attachments/assets/d2dd4a03-d8dc-4a0f-b603-114b7e815695" />

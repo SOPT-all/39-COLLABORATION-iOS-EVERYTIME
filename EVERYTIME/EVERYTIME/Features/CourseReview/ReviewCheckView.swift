@@ -64,16 +64,17 @@ struct ReviewCheckView: View {
             
             VStack(spacing: 0) {
                 Spacer()
-                
                 IconLeftButton(title: "평가하기", size: .lg)
                     .padding(.bottom, 8)
-                
-                NavigationTab()
-                    .background(
-                        Color.white.ignoresSafeArea(edges: .bottom)
-                            .shadow(color: .black.opacity(0.13), radius: 10.5, x: 0, y: 0)
-                    )
             }
+        }
+        .safeAreaInset(edge: .bottom, spacing: 0) {
+            NavigationTab()
+                .background(
+                    Color.white.ignoresSafeArea(edges: .bottom)
+                        .shadow(color: .black.opacity(0.13), radius: 10.5, x: 0, y: 0)
+                )
+            
         }
         .task {
             await viewModel.loadReviews()

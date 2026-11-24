@@ -32,8 +32,8 @@ final class ReviewCheckViewModel {
     }
     
     func loadReviews() async {
-        guard !isLoading else { return }
         
+        let requestdKeywordId = selectedKeywordId
         isLoading = true
         errorMessage = nil
         defer { isLoading = false }
@@ -46,6 +46,8 @@ final class ReviewCheckViewModel {
                 page: page,
                 size: pageSize
             )
+            
+            guard requestdKeywordId == selectedKeywordId else { return }
             guard let result = response.data?.toDomain() else {
                 errorMessage = response.message
                 return
@@ -58,6 +60,7 @@ final class ReviewCheckViewModel {
             page = result.page
             hasNext = result.hasNext
         } catch {
+            guard requestdKeywordId == selectedKeywordId else { return }
             errorMessage = "강의평을 불러오지 못했습니다."
             print(error)
         }

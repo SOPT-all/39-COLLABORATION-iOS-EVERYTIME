@@ -24,7 +24,7 @@ final class ReviewCheckViewModel {
     private(set) var selectedKeywordId: Int64?
     
     private let sectionId: Int64
-    private let pageSize = 10
+    private let pageSize = 30
     
     
     init(sectionId: Int64) {
@@ -67,7 +67,14 @@ final class ReviewCheckViewModel {
     }
     
     func selectKeyword(_ id: Int64?) async {
-        selectedKeywordId = (selectedKeywordId == id) ? nil : id
+        selectedKeywordId = id
+        page = 1
+        await loadReviews()
+    }
+
+    func selectAll() async {
+        guard selectedKeywordId != nil else { return }
+        selectedKeywordId = nil
         page = 1
         await loadReviews()
     }

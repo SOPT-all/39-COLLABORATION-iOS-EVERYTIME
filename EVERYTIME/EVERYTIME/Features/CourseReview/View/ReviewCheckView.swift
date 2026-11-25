@@ -41,6 +41,17 @@ struct ReviewCheckView: View {
                 
                 ScrollView(.horizontal) {
                     HStack(spacing: 5) {
+                        ChipButton(
+                            title: "전체",
+                            style: .sm(count: viewModel.totalReviewCount),
+                            isSelected: viewModel.selectedKeywordId == nil,
+                            action: {
+                                Task {
+                                    await viewModel.selectAll()
+                                }
+                            }
+                        )
+
                         ForEach(viewModel.keywords) { keyword in
                             ChipButton(
                                 title: keyword.name,
@@ -83,5 +94,5 @@ struct ReviewCheckView: View {
 }
 
 #Preview {
-    ReviewCheckView(sectionId: 1)
+    ReviewCheckView(sectionId: 3)
 }

@@ -16,8 +16,8 @@ struct TimetableView: View {
     
     private let timetableColors: [Color] = [
         .timetableCoral,
-        .timetableOrange,
         .timetableGreen,
+        .timetableOrange,
         .timetableMint,
         .timetableBlue,
         .timetablePurple,
@@ -130,7 +130,13 @@ struct TimetableView: View {
     }
     
     private var lessons: [TimetableLesson] {
-        timetableViewModel.timetable.flatMap { entry in
+        let entries = timetableViewModel.timetable.sorted { lhs, rhs in
+            let lhsStart = firstTime(of: lhs)
+            let rhsStart = firstTime(of: rhs)
+            return lhsStart == rhsStart ? lhs.id < rhs.id : lhsStart < rhsStart
+        }
+
+        return entries.enumerated().flatMap { index, entry in
             entry.times.compactMap { time -> TimetableLesson? in
                 guard
                     let day = dayIndex(time.dayOfWeek),
@@ -147,10 +153,18 @@ struct TimetableView: View {
                     end: end,
                     title: entry.courseName,
                     professor: "",
-                    color: timetableColors[Int(entry.id % Int64(timetableColors.count))]
+                    color: timetableColors[index % timetableColors.count]
                 )
             }
         }
+    }
+
+    private func firstTime(of entry: TimetableEntry) -> Double {
+        entry.times.compactMap { time -> Double? in
+            guard let day = dayIndex(time.dayOfWeek),
+                  let hour = hourValue(time.startTime) else { return nil }
+            return Double(day * 24) + hour
+        }.min() ?? .infinity
     }
     
     private func dayIndex(_ value: String) -> Int? {
